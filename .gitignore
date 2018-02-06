@@ -1,0 +1,11 @@
+.idea/
+*.swp
+bin/
+ChatApp/WEB-INF/classes/*
+ChatApp/META-INF/
+target
+.classpath
+.project
+.settings
+*.iml
+.DS_STORE
