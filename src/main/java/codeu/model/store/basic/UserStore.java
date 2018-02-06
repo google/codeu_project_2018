@@ -48,10 +48,7 @@ public class UserStore {
    * @param persistentStorageAgent a mock used for testing
    */
   public static UserStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
-    if(instance == null) {
-      instance = new UserStore(persistentStorageAgent);
-    }
-    return instance;
+      return new UserStore(persistentStorageAgent);
   }
 
   /**
@@ -72,18 +69,9 @@ public class UserStore {
 
   /**
    * Load a set of randomly-generated Message objects.
-   * Returns false if a error occurs.
    */
-  public boolean loadTestData() {
-    boolean loaded = false;
-    try {
-      users.addAll(DefaultDataStore.getInstance().getAllUsers());
-      loaded = true;
-    } catch (Exception e) {
-      loaded = false;
-      System.err.println("ERROR: Unable to establish initial store (users).");
-    }
-    return loaded;
+  public void loadTestData() {
+    users.addAll(DefaultDataStore.getInstance().getAllUsers());
   }
 
   /**
@@ -134,7 +122,8 @@ public class UserStore {
   }
 
   /**
-   * Sets the List of Users stored by this UserStore.
+   * Sets the List of Users stored by this UserStore. This should only be called once, when the
+   * data is loaded from Datastore.
    */
   public void setUsers(List<User> users) {
     this.users = users;
