@@ -28,7 +28,7 @@ public class UserStoreTest {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     userStore = UserStore.getTestInstance(mockPersistentStorageAgent);
 
-    List<User> userList = new ArrayList<>();
+    final List<User> userList = new ArrayList<>();
     userList.add(USER_ONE);
     userList.add(USER_TWO);
     userList.add(USER_THREE);
