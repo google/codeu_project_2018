@@ -15,8 +15,7 @@ If this prints out a version number, then you already have Java and can skip to
 step 2. If the version number is less than `javac_1.8`, then you have an old
 version of Java and should probably upgrade by following these instructions.
 
-Download the JDK (not the JRE) from [here]
-(http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html).
+Download the JDK (not the JRE) from [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk9-downloads-3848520.html).
 
 Retry the `javac -version` command **in a new console window** to check the
 installation. If you still don't see a version number, then update your `PATH`
