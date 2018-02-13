@@ -43,6 +43,14 @@ public class ConversationStore {
   }
 
   /**
+   * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
+   * @param persistentStorageAgent a mock used for testing
+   */
+  public static ConversationStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
+      return new ConversationStore(persistentStorageAgent);
+  }
+
+  /**
    * The PersistentStorageAgent responsible for loading Conversations from and saving Conversations
    * to Datastore.
    */
