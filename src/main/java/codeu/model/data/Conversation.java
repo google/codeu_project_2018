@@ -42,30 +42,22 @@ public class Conversation {
     this.title = title;
   }
 
-  /**
-   * Returns the ID of this Conversation.
-   */
+  /** Returns the ID of this Conversation. */
   public UUID getId() {
     return id;
   }
 
-  /**
-   * Returns the ID of the User who created this Conversation.
-   */
+  /** Returns the ID of the User who created this Conversation. */
   public UUID getOwnerId() {
     return owner;
   }
 
-  /**
-   * Returns the title of this Conversation.
-   */
+  /** Returns the title of this Conversation. */
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Returns the creation time of this Conversation.
-   */
+  /** Returns the creation time of this Conversation. */
   public Instant getCreationTime() {
     return creation;
   }

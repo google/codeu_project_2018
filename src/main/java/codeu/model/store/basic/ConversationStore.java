@@ -21,22 +21,20 @@ import java.util.List;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
- * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the
- * same instance.
+ * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the same
+ * instance.
  */
 public class ConversationStore {
 
-  /**
-   * Singleton instance of ConversationStore.
-   */
+  /** Singleton instance of ConversationStore. */
   private static ConversationStore instance;
 
   /**
-   * Returns the singleton instance of ConversationStore that should be shared between all
-   * servlet classes. Do not call this function from a test; use getTestInstance() instead.
+   * Returns the singleton instance of ConversationStore that should be shared between all servlet
+   * classes. Do not call this function from a test; use getTestInstance() instead.
    */
   public static ConversationStore getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new ConversationStore(PersistentStorageAgent.getInstance());
     }
     return instance;
@@ -44,10 +42,11 @@ public class ConversationStore {
 
   /**
    * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
+   *
    * @param persistentStorageAgent a mock used for testing
    */
   public static ConversationStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
-      return new ConversationStore(persistentStorageAgent);
+    return new ConversationStore(persistentStorageAgent);
   }
 
   /**
@@ -56,9 +55,7 @@ public class ConversationStore {
    */
   private PersistentStorageAgent persistentStorageAgent;
 
-  /**
-   * The in-memory list of Conversations.
-   */
+  /** The in-memory list of Conversations. */
   private List<Conversation> conversations;
 
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
@@ -67,10 +64,7 @@ public class ConversationStore {
     conversations = new ArrayList<>();
   }
 
-  /**
-   * Load a set of randomly-generated Conversation objects.
-   * Returns false if a error occurs.
-   */
+  /** Load a set of randomly-generated Conversation objects. Returns false if a error occurs. */
   public boolean loadTestData() {
     boolean loaded = false;
     try {
@@ -83,24 +77,18 @@ public class ConversationStore {
     return loaded;
   }
 
-  /**
-   * Access the current set of conversations known to the application.
-   */
+  /** Access the current set of conversations known to the application. */
   public List<Conversation> getAllConversations() {
     return conversations;
   }
 
-  /**
-   * Add a new conversation to the current set of conversations known to the application.
-   */
+  /** Add a new conversation to the current set of conversations known to the application. */
   public void addConversation(Conversation conversation) {
     conversations.add(conversation);
     persistentStorageAgent.writeThrough(conversation);
   }
 
-  /**
-   * Check whether a Conversation title is already known to the application.
-   */
+  /** Check whether a Conversation title is already known to the application. */
   public boolean isTitleTaken(String title) {
     // This approach will be pretty slow if we have many Conversations.
     for (Conversation conversation : conversations) {
@@ -111,9 +99,7 @@ public class ConversationStore {
     return false;
   }
 
-  /**
-   * Find and return the Conversation with the given title.
-   */
+  /** Find and return the Conversation with the given title. */
   public Conversation getConversationWithTitle(String title) {
     for (Conversation conversation : conversations) {
       if (conversation.getTitle().equals(title)) {
@@ -123,9 +109,7 @@ public class ConversationStore {
     return null;
   }
 
-  /**
-   * Sets the List of Conversations stored by this ConversationStore.
-   */
+  /** Sets the List of Conversations stored by this ConversationStore. */
   public void setConversations(List<Conversation> conversations) {
     this.conversations = conversations;
   }

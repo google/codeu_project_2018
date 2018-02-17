@@ -31,29 +31,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
-/**
- * Servlet class responsible for the chat page.
- */
+/** Servlet class responsible for the chat page. */
 public class ChatServlet extends HttpServlet {
 
-  /**
-   * Store class that gives access to Conversations.
-   */
+  /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
 
-  /**
-   * Store class that gives access to Messages.
-   */
+  /** Store class that gives access to Messages. */
   private MessageStore messageStore;
 
-  /**
-   * Store class that gives access to Users.
-   */
+  /** Store class that gives access to Users. */
   private UserStore userStore;
 
-  /**
-   * Set up state for handling chat requests.
-   */
+  /** Set up state for handling chat requests. */
   @Override
   public void init() throws ServletException {
     super.init();
@@ -71,16 +61,16 @@ public class ChatServlet extends HttpServlet {
   }
 
   /**
-   * Sets the MessageStore used by this servlet. This function provides a common setup method
-   * for use by the test framework or the servlet's init() function.
+   * Sets the MessageStore used by this servlet. This function provides a common setup method for
+   * use by the test framework or the servlet's init() function.
    */
   void setMessageStore(MessageStore messageStore) {
     this.messageStore = messageStore;
   }
 
   /**
-   * Sets the UserStore used by this servlet. This function provides a common setup method
-   * for use by the test framework or the servlet's init() function.
+   * Sets the UserStore used by this servlet. This function provides a common setup method for use
+   * by the test framework or the servlet's init() function.
    */
   void setUserStore(UserStore userStore) {
     this.userStore = userStore;
@@ -154,10 +144,14 @@ public class ChatServlet extends HttpServlet {
     String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
 
     Message message =
-        new Message(UUID.randomUUID(), conversation.getId(), user.getId(),
-                    cleanedMessageContent, Instant.now());
+        new Message(
+            UUID.randomUUID(),
+            conversation.getId(),
+            user.getId(),
+            cleanedMessageContent,
+            Instant.now());
 
-   messageStore.addMessage(message);
+    messageStore.addMessage(message);
 
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);

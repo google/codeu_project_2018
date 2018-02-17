@@ -16,8 +16,8 @@ import org.junit.Test;
 /**
  * Test class for PersistentDataStore. The PersistentDataStore class relies on DatastoreService,
  * which in turn relies on being deployed in an AppEngine context. Since this test doesn't run in
- * AppEngine, we use LocalServiceTestHelper to do all of the AppEngine setup so we can test.
- * More info: https://cloud.google.com/appengine/docs/standard/java/tools/localunittesting
+ * AppEngine, we use LocalServiceTestHelper to do all of the AppEngine setup so we can test. More
+ * info: https://cloud.google.com/appengine/docs/standard/java/tools/localunittesting
  */
 public class PersistentDataStoreTest {
 

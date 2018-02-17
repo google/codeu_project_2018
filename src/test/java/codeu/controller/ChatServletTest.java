@@ -81,8 +81,13 @@ public class ChatServletTest {
         .thenReturn(fakeConversation);
 
     List<Message> fakeMessageList = new ArrayList<>();
-    fakeMessageList.add(new Message(UUID.randomUUID(), fakeConversationId, UUID.randomUUID(),
-        "test message", Instant.now()));
+    fakeMessageList.add(
+        new Message(
+            UUID.randomUUID(),
+            fakeConversationId,
+            UUID.randomUUID(),
+            "test message",
+            Instant.now()));
     Mockito.when(mockMessageStore.getMessagesInConversation(fakeConversationId))
         .thenReturn(fakeMessageList);
 
@@ -133,7 +138,8 @@ public class ChatServletTest {
     User fakeUser = new User(UUID.randomUUID(), "test_username", Instant.now());
     Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
 
-    Mockito.when(mockConversationStore.getConversationWithTitle("test_conversation")).thenReturn(null);
+    Mockito.when(mockConversationStore.getConversationWithTitle("test_conversation"))
+        .thenReturn(null);
 
     chatServlet.doPost(mockRequest, mockResponse);
 
@@ -185,7 +191,8 @@ public class ChatServletTest {
 
     ArgumentCaptor<Message> messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
     Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture());
-    Assert.assertEquals("Contains html and  content.", messageArgumentCaptor.getValue().getContent());
+    Assert.assertEquals(
+        "Contains html and  content.", messageArgumentCaptor.getValue().getContent());
 
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
   }

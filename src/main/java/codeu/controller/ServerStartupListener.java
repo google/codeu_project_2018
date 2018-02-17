@@ -16,11 +16,9 @@ import javax.servlet.ServletContextListener;
  * Listener class that fires when the server first starts up, before any servlet classes are
  * instantiated.
  */
-public class ServerStartupListener implements ServletContextListener{
+public class ServerStartupListener implements ServletContextListener {
 
-  /**
-   * Loads data from Datastore.
-   */
+  /** Loads data from Datastore. */
   @Override
   public void contextInitialized(ServletContextEvent sce) {
     try {

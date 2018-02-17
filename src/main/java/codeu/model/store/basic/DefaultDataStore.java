@@ -27,9 +27,8 @@ import java.util.UUID;
 /**
  * This class makes it easy to add dummy data to your chat app instance. To use fake data, set
  * USE_DEFAULT_DATA to true, then adjust the COUNT variables to generate the corresponding amount of
- * users, conversations, and messages.
- * Note that the data must be consistent, i.e. if a Message has an author,
- * that author must be a member of the Users list.
+ * users, conversations, and messages. Note that the data must be consistent, i.e. if a Message has
+ * an author, that author must be a member of the Users list.
  */
 public class DefaultDataStore {
 
@@ -124,11 +123,7 @@ public class DefaultDataStore {
 
       Message message =
           new Message(
-              UUID.randomUUID(),
-              conversation.getId(),
-              author.getId(),
-              content,
-              Instant.now());
+              UUID.randomUUID(), conversation.getId(), author.getId(), content, Instant.now());
       PersistentStorageAgent.getInstance().writeThrough(message);
       messages.add(message);
     }

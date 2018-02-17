@@ -17,9 +17,7 @@ package codeu.model.data;
 import java.time.Instant;
 import java.util.UUID;
 
-/**
- * Class representing a message. Messages are sent by a User in a Conversation.
- */
+/** Class representing a message. Messages are sent by a User in a Conversation. */
 public class Message {
 
   private final UUID id;
@@ -45,37 +43,27 @@ public class Message {
     this.creation = creation;
   }
 
-  /**
-   * Returns the ID of this Message.
-   */
+  /** Returns the ID of this Message. */
   public UUID getId() {
     return id;
   }
 
-  /**
-   * Returns the ID of the Conversation this Message belongs to.
-   */
+  /** Returns the ID of the Conversation this Message belongs to. */
   public UUID getConversationId() {
     return conversation;
   }
 
-  /**
-   * Returns the ID of the User who sent this Message.
-   */
+  /** Returns the ID of the User who sent this Message. */
   public UUID getAuthorId() {
     return author;
   }
 
-  /**
-   * Returns the text content of this Message.
-   */
+  /** Returns the text content of this Message. */
   public String getContent() {
     return content;
   }
 
-  /**
-   * Returns the creation time of this Message.
-   */
+  /** Returns the creation time of this Message. */
   public Instant getCreationTime() {
     return creation;
   }

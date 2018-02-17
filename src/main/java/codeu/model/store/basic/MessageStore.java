@@ -22,14 +22,12 @@ import java.util.UUID;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
- * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the
- * same instance.
+ * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the same
+ * instance.
  */
 public class MessageStore {
 
-  /**
-   * Singleton instance of MessageStore.
-   */
+  /** Singleton instance of MessageStore. */
   private static MessageStore instance;
 
   /**
@@ -37,21 +35,19 @@ public class MessageStore {
    * classes. Do not call this function from a test; use getTestInstance() instead.
    */
   public static MessageStore getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new MessageStore(PersistentStorageAgent.getInstance());
     }
     return instance;
   }
 
   /**
-   * The PersistentStorageAgent responsible for loading Messages from and saving Messages
-   * to Datastore.
+   * The PersistentStorageAgent responsible for loading Messages from and saving Messages to
+   * Datastore.
    */
   private PersistentStorageAgent persistentStorageAgent;
 
-  /**
-   * The in-memory list of Messages.
-   */
+  /** The in-memory list of Messages. */
   private List<Message> messages;
 
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
@@ -60,10 +56,7 @@ public class MessageStore {
     messages = new ArrayList<>();
   }
 
-  /**
-   * Load a set of randomly-generated Message objects.
-   * Returns false if a error occurs.
-   */
+  /** Load a set of randomly-generated Message objects. Returns false if a error occurs. */
   public boolean loadTestData() {
     boolean loaded = false;
     try {
@@ -76,17 +69,13 @@ public class MessageStore {
     return loaded;
   }
 
-  /**
-   * Add a new message to the current set of messages known to the application.
-   */
+  /** Add a new message to the current set of messages known to the application. */
   public void addMessage(Message message) {
     messages.add(message);
     persistentStorageAgent.writeThrough(message);
   }
 
-  /**
-   * Access the current set of Messages within the given Conversation.
-   */
+  /** Access the current set of Messages within the given Conversation. */
   public List<Message> getMessagesInConversation(UUID conversationId) {
 
     List<Message> messagesInConversation = new ArrayList<>();
@@ -100,9 +89,7 @@ public class MessageStore {
     return messagesInConversation;
   }
 
-  /**
-   * Sets the List of Messages stored by this MessageStore.
-   */
+  /** Sets the List of Messages stored by this MessageStore. */
   public void setMessages(List<Message> messages) {
     this.messages = messages;
   }
