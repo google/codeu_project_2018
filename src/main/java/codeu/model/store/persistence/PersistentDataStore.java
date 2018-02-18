@@ -29,9 +29,9 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * This class handles all interactions with Google App Engine's Datastore service.
- * On startup it sets the state of the applications's data objects from the current contents of
- * its Datastore. It also performs writes of new of modified objects back to the Datastore.
+ * This class handles all interactions with Google App Engine's Datastore service. On startup it
+ * sets the state of the applications's data objects from the current contents of its Datastore. It
+ * also performs writes of new of modified objects back to the Datastore.
  */
 public class PersistentDataStore {
 
@@ -48,8 +48,9 @@ public class PersistentDataStore {
 
   /**
    * Loads all User objects from the Datastore service and returns them in a List.
+   *
    * @throws PersistentDataStoreException if an error was detected during the load from the
-   * Datastore service
+   *     Datastore service
    */
   public List<User> loadUsers() throws PersistentDataStoreException {
 
@@ -61,9 +62,9 @@ public class PersistentDataStore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        UUID uuid = UUID.fromString((String)entity.getProperty("uuid"));
-        String userName = (String)entity.getProperty("username");
-        Instant creationTime = Instant.parse((String)entity.getProperty("creation_time"));
+        UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
+        String userName = (String) entity.getProperty("username");
+        Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         User user = new User(uuid, userName, creationTime);
         users.add(user);
       } catch (Exception e) {
@@ -79,8 +80,9 @@ public class PersistentDataStore {
 
   /**
    * Loads all Conversation objects from the Datastore service and returns them in a List.
+   *
    * @throws PersistentDataStoreException if an error was detected during the load from the
-   * Datastore service
+   *     Datastore service
    */
   public List<Conversation> loadConversations() throws PersistentDataStoreException {
 
@@ -92,10 +94,10 @@ public class PersistentDataStore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        UUID uuid = UUID.fromString((String)entity.getProperty("uuid"));
-        UUID ownerUuid = UUID.fromString((String)entity.getProperty("owner_uuid"));
-        String title = (String)entity.getProperty("title");
-        Instant creationTime = Instant.parse((String)entity.getProperty("creation_time"));
+        UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
+        UUID ownerUuid = UUID.fromString((String) entity.getProperty("owner_uuid"));
+        String title = (String) entity.getProperty("title");
+        Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         Conversation conversation = new Conversation(uuid, ownerUuid, title, creationTime);
         conversations.add(conversation);
       } catch (Exception e) {
@@ -110,9 +112,10 @@ public class PersistentDataStore {
   }
 
   /**
-   * Loads all Message objects from the Datastore service  and returns them in a List.
+   * Loads all Message objects from the Datastore service and returns them in a List.
+   *
    * @throws PersistentDataStoreException if an error was detected during the load from the
-   * Datastore service
+   *     Datastore service
    */
   public List<Message> loadMessages() throws PersistentDataStoreException {
 
@@ -124,11 +127,11 @@ public class PersistentDataStore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        UUID uuid = UUID.fromString((String)entity.getProperty("uuid"));
-        UUID conversationUuid = UUID.fromString((String)entity.getProperty("conv_uuid"));
-        UUID authorUuid = UUID.fromString((String)entity.getProperty("author_uuid"));
-        Instant creationTime = Instant.parse((String)entity.getProperty("creation_time"));
-        String content = (String)entity.getProperty("content");
+        UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
+        UUID conversationUuid = UUID.fromString((String) entity.getProperty("conv_uuid"));
+        UUID authorUuid = UUID.fromString((String) entity.getProperty("author_uuid"));
+        Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
+        String content = (String) entity.getProperty("content");
         Message message = new Message(uuid, conversationUuid, authorUuid, content, creationTime);
         messages.add(message);
       } catch (Exception e) {
@@ -142,9 +145,7 @@ public class PersistentDataStore {
     return messages;
   }
 
-  /**
-   * Write a User object to the Datastore service.
-   */
+  /** Write a User object to the Datastore service. */
   public void writeThrough(User user) {
     Entity userEntity = new Entity("chat-users");
     userEntity.setProperty("uuid", user.getId().toString());
@@ -153,9 +154,7 @@ public class PersistentDataStore {
     datastore.put(userEntity);
   }
 
-  /**
-   * Write a Message object to the Datastore service.
-   */
+  /** Write a Message object to the Datastore service. */
   public void writeThrough(Message message) {
     Entity messageEntity = new Entity("chat-messages");
     messageEntity.setProperty("uuid", message.getId().toString());
@@ -166,9 +165,7 @@ public class PersistentDataStore {
     datastore.put(messageEntity);
   }
 
-  /**
-   * Write a Conversation object to the Datastore service.
-   */
+  /** Write a Conversation object to the Datastore service. */
   public void writeThrough(Conversation conversation) {
     Entity conversationEntity = new Entity("chat-conversations");
     conversationEntity.setProperty("uuid", conversation.getId().toString());

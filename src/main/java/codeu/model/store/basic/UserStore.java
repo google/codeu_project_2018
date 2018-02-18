@@ -22,22 +22,20 @@ import java.util.UUID;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
- * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the
- * same instance.
+ * saves to PersistentStorageAgent. It's a singleton so all servlet classes can access the same
+ * instance.
  */
 public class UserStore {
 
-  /**
-   * Singleton instance of UserStore.
-   */
+  /** Singleton instance of UserStore. */
   private static UserStore instance;
 
   /**
-   * Returns the singleton instance of UserStore that should be shared between all servlet
-   * classes. Do not call this function from a test; use getTestInstance() instead.
+   * Returns the singleton instance of UserStore that should be shared between all servlet classes.
+   * Do not call this function from a test; use getTestInstance() instead.
    */
   public static UserStore getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
     }
     return instance;
@@ -45,10 +43,11 @@ public class UserStore {
 
   /**
    * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
+   *
    * @param persistentStorageAgent a mock used for testing
    */
   public static UserStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
-      return new UserStore(persistentStorageAgent);
+    return new UserStore(persistentStorageAgent);
   }
 
   /**
@@ -56,9 +55,7 @@ public class UserStore {
    */
   private PersistentStorageAgent persistentStorageAgent;
 
-  /**
-   * The in-memory list of Users.
-   */
+  /** The in-memory list of Users. */
   private List<User> users;
 
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
@@ -67,16 +64,15 @@ public class UserStore {
     users = new ArrayList<>();
   }
 
-  /**
-   * Load a set of randomly-generated Message objects.
-   */
+  /** Load a set of randomly-generated Message objects. */
   public void loadTestData() {
     users.addAll(DefaultDataStore.getInstance().getAllUsers());
   }
 
   /**
    * Access the User object with the given name.
-   * Return null if username does not match any existing User.
+   *
+   * @return null if username does not match any existing User.
    */
   public User getUser(String username) {
     // This approach will be pretty slow if we have many users.
@@ -90,7 +86,8 @@ public class UserStore {
 
   /**
    * Access the User object with the given UUID.
-   * Return null if the UUID does not match any existing User.
+   *
+   * @return null if the UUID does not match any existing User.
    */
   public User getUser(UUID id) {
     for (User user : users) {
@@ -101,17 +98,13 @@ public class UserStore {
     return null;
   }
 
-  /**
-   * Add a new user to the current set of users known to the application.
-   */
+  /** Add a new user to the current set of users known to the application. */
   public void addUser(User user) {
     users.add(user);
     persistentStorageAgent.writeThrough(user);
   }
 
-  /**
-   * Return true if the given username is known to the application.
-   */
+  /** Return true if the given username is known to the application. */
   public boolean isUserRegistered(String username) {
     for (User user : users) {
       if (user.getName().equals(username)) {
@@ -122,8 +115,8 @@ public class UserStore {
   }
 
   /**
-   * Sets the List of Users stored by this UserStore. This should only be called once, when the
-   * data is loaded from Datastore.
+   * Sets the List of Users stored by this UserStore. This should only be called once, when the data
+   * is loaded from Datastore.
    */
   public void setUsers(List<User> users) {
     this.users = users;

@@ -23,29 +23,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet class responsible for loading test data.
- */
+/** Servlet class responsible for loading test data. */
 public class TestDataServlet extends HttpServlet {
 
-  /**
-   * Store class that gives access to Conversations.
-   */
+  /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
 
-  /**
-   * Store class that gives access to Messages.
-   */
+  /** Store class that gives access to Messages. */
   private MessageStore messageStore;
 
-  /**
-   * Store class that gives access to Users.
-   */
+  /** Store class that gives access to Users. */
   private UserStore userStore;
 
-  /**
-   * Set up state for handling the load test data request.
-   */
+  /** Set up state for handling the load test data request. */
   @Override
   public void init() throws ServletException {
     super.init();
@@ -63,16 +53,16 @@ public class TestDataServlet extends HttpServlet {
   }
 
   /**
-   * Sets the MessageStore used by this servlet. This function provides a common setup method
-   * for use by the test framework or the servlet's init() function.
+   * Sets the MessageStore used by this servlet. This function provides a common setup method for
+   * use by the test framework or the servlet's init() function.
    */
   void setMessageStore(MessageStore messageStore) {
     this.messageStore = messageStore;
   }
 
   /**
-   * Sets the UserStore used by this servlet. This function provides a common setup method
-   * for use by the test framework or the servlet's init() function.
+   * Sets the UserStore used by this servlet. This function provides a common setup method for use
+   * by the test framework or the servlet's init() function.
    */
   void setUserStore(UserStore userStore) {
     this.userStore = userStore;

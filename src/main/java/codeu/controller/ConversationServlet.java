@@ -27,19 +27,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet class responsible for the conversations page.
- */
+/** Servlet class responsible for the conversations page. */
 public class ConversationServlet extends HttpServlet {
 
-  /**
-   * Store class that gives access to Users.
-   */
+  /** Store class that gives access to Users. */
   private UserStore userStore;
 
-  /**
-   * Store class that gives access to Conversations.
-   */
+  /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
 
   /**
@@ -54,8 +48,8 @@ public class ConversationServlet extends HttpServlet {
   }
 
   /**
-   * Sets the UserStore used by this servlet. This function provides a common setup method
-   * for use by the test framework or the servlet's init() function.
+   * Sets the UserStore used by this servlet. This function provides a common setup method for use
+   * by the test framework or the servlet's init() function.
    */
   void setUserStore(UserStore userStore) {
     this.userStore = userStore;
@@ -120,8 +114,7 @@ public class ConversationServlet extends HttpServlet {
     }
 
     Conversation conversation =
-        new Conversation(
-            UUID.randomUUID(), user.getId(), conversationTitle, Instant.now());
+        new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, Instant.now());
 
     conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + conversationTitle);

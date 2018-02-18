@@ -58,8 +58,8 @@ public class LoginServletTest {
 
     loginServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockRequest).setAttribute("error",
-        "Please enter only letters, numbers, and spaces.");
+    Mockito.verify(mockRequest)
+        .setAttribute("error", "Please enter only letters, numbers, and spaces.");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
 
