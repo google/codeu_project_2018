@@ -56,7 +56,11 @@ public class MessageStore {
     messages = new ArrayList<>();
   }
 
-  /** Load a set of randomly-generated Message objects. Returns false if a error occurs. */
+  /**
+   * Load a set of randomly-generated Message objects.
+   *
+   * @return false if an error occurs.
+   */
   public boolean loadTestData() {
     boolean loaded = false;
     try {

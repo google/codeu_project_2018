@@ -64,7 +64,11 @@ public class ConversationStore {
     conversations = new ArrayList<>();
   }
 
-  /** Load a set of randomly-generated Conversation objects. Returns false if a error occurs. */
+  /**
+   * Load a set of randomly-generated Conversation objects.
+   *
+   * @return false if a error occurs.
+   */
   public boolean loadTestData() {
     boolean loaded = false;
     try {

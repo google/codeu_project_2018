@@ -70,8 +70,9 @@ public class UserStore {
   }
 
   /**
-   * Access the User object with the given name. Return null if username does not match any existing
-   * User.
+   * Access the User object with the given name.
+   *
+   * @return null if username does not match any existing User.
    */
   public User getUser(String username) {
     // This approach will be pretty slow if we have many users.
@@ -84,8 +85,9 @@ public class UserStore {
   }
 
   /**
-   * Access the User object with the given UUID. Return null if the UUID does not match any existing
-   * User.
+   * Access the User object with the given UUID.
+   *
+   * @return null if the UUID does not match any existing User.
    */
   public User getUser(UUID id) {
     for (User user : users) {
