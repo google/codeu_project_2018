@@ -42,6 +42,15 @@ public class MessageStore {
   }
 
   /**
+   * Instance getter function used for testing. Supply a mock for PersistentStorageAgent.
+   *
+   * @param persistentStorageAgent a mock used for testing
+   */
+  public static MessageStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
+    return new MessageStore(persistentStorageAgent);
+  }
+
+  /**
    * The PersistentStorageAgent responsible for loading Messages from and saving Messages to
    * Datastore.
    */
