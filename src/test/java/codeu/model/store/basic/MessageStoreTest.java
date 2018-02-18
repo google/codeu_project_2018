@@ -73,9 +73,9 @@ public class MessageStoreTest {
             Instant.now());
 
     messageStore.addMessage(inputMessage);
-    Message resulMessage = messageStore.getMessagesInConversation(inputConversationId).get(0);
+    Message resultMessage = messageStore.getMessagesInConversation(inputConversationId).get(0);
 
-    assertEquals(inputMessage, resulMessage);
+    assertEquals(inputMessage, resultMessage);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputMessage);
   }
 
