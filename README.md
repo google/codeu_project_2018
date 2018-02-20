@@ -56,8 +56,6 @@ If you don't see a version number, then make sure Git is on your `PATH`.
 
 ## Step 4: Clone this repository
 
-**TODO: Insert GitHub setup here?**
-
 ## Step 5: Run a development server
 
 In order to test changes locally, you'll want to run the server locally, on your
@@ -85,5 +83,3 @@ App Engine devserver.
 - Bring the devserver back up by executing `mvn clean appengine:devserver`
 again.
 - Refresh your browser to see your changes!
-
-## TODO: Deploy to prod server?
