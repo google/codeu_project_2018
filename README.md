@@ -54,17 +54,16 @@ git --version
 
 If you don't see a version number, then make sure Git is on your `PATH`.
 
-## Step 4: Clone this repository
+## Step 4: Setup your repository
 
-**TODO: Insert GitHub setup here?**
+Follow the instructions in the first project to get your repository setup.
 
 ## Step 5: Run a development server
 
 In order to test changes locally, you'll want to run the server locally, on your
 own computer.
 
-To do this, open a console to your `codeu_student_project` directory (TODO:
-update this dir name) and execute this command:
+To do this, open a console to your `codeu_project_2018` directory and execute this command:
 
 ```
 mvn clean appengine:devserver
@@ -85,5 +84,3 @@ App Engine devserver.
 - Bring the devserver back up by executing `mvn clean appengine:devserver`
 again.
 - Refresh your browser to see your changes!
-
-## TODO: Deploy to prod server?
