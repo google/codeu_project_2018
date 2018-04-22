@@ -30,7 +30,6 @@
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
-    <a href="/testdata">Load Test Data</a>
   </nav>
 
   <div id="container">

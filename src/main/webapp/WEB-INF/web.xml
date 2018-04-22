@@ -56,14 +56,4 @@
     <url-pattern>/chat/*</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name>TestDataServlet</servlet-name>
-    <servlet-class>codeu.controller.TestDataServlet</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>TestDataServlet</servlet-name>
-    <url-pattern>/testdata</url-pattern>
-  </servlet-mapping>
-
 </web-app>
