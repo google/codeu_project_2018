@@ -45,8 +45,6 @@
             create or join a conversation.</li>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
-        <li>You can <a href="/testdata">load test data</a> to fill the site with
-            example data.</li>
       </ul>
     </div>
   </div>
