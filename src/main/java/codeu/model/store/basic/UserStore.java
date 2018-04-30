@@ -93,9 +93,19 @@ public class UserStore {
     return null;
   }
 
-  /** Add a new user to the current set of users known to the application. */
+  /**
+   * Add a new user to the current set of users known to the application. This should only be called
+   * to add a new user, not to update an existing user.
+   */
   public void addUser(User user) {
     users.add(user);
+    persistentStorageAgent.writeThrough(user);
+  }
+
+  /**
+   * Update an existing User.
+   */
+  public void updateUser(User user) {
     persistentStorageAgent.writeThrough(user);
   }
 
@@ -117,3 +127,4 @@ public class UserStore {
     this.users = users;
   }
 }
+
