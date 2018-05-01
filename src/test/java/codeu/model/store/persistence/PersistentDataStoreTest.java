@@ -76,7 +76,7 @@ public class PersistentDataStoreTest {
     Conversation inputConversationOne = new Conversation(idOne, ownerOne, titleOne, creationOne);
 
     UUID idTwo = UUID.fromString("10000002-2222-3333-4444-555555555555");
-    UUID ownerTwo = UUID.fromString("10000002-2222-3333-4444-555555555555");
+    UUID ownerTwo = UUID.fromString("10000003-2222-3333-4444-555555555555");
     String titleTwo = "Test_Title_Two";
     Instant creationTwo = Instant.ofEpochMilli(2000);
     Conversation inputConversationTwo = new Conversation(idTwo, ownerTwo, titleTwo, creationTwo);
@@ -143,4 +143,3 @@ public class PersistentDataStoreTest {
     Assert.assertEquals(creationTwo, resultMessageTwo.getCreationTime());
   }
 }
-
