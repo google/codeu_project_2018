@@ -66,9 +66,10 @@ public class RegisterServletTest {
     ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
 
     Mockito.verify(mockUserStore).addUser(userArgumentCaptor.capture());
-    Assert.assertEquals(userArgumentCaptor.getValue().getName(), "test username");
+    Assert.assertEquals("test username", userArgumentCaptor.getValue().getName());
     Assert.assertThat(
         userArgumentCaptor.getValue().getPasswordHash(), CoreMatchers.containsString("$2a$10$"));
+    Assert.assertEquals(60, userArgumentCaptor.getValue().getPasswordHash().length());
 
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
