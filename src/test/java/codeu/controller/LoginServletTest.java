@@ -71,7 +71,12 @@ public class LoginServletTest {
   @Test
   public void testDoPost_ExistingUser() throws IOException, ServletException {
 
-    User user = new User(UUID.randomUUID(), "test username", "test password", Instant.now());
+    User user =
+        new User(
+            UUID.randomUUID(),
+            "test username",
+            "$2a$10$.e.4EEfngEXmxAO085XnYOmDntkqod0C384jOR9oagwxMnPNHaGLa",
+            Instant.now());
 
     Mockito.when(mockRequest.getParameter("username")).thenReturn("test username");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("test password");

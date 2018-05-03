@@ -17,12 +17,12 @@ package codeu.controller;
 import codeu.model.data.User;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 /** Servlet class responsible for the login page. */
 public class LoginServlet extends HttpServlet {
@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
 
     User user = userStore.getUser(username);
 
-    if (!password.equals(user.getPassword())) {
+    if (!BCrypt.checkpw(password, user.getPasswordHash())) {
       request.setAttribute("error", "Please enter a correct password.");
       request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
       return;
