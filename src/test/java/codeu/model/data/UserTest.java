@@ -25,14 +25,14 @@ public class UserTest {
   public void testCreate() {
     UUID id = UUID.randomUUID();
     String name = "test_username";
-    String password = "test_username";
+    String passwordHash = "$2a$10$bBiLUAVmUFK6Iwg5rmpBUOIBW6rIMhU1eKfi3KR60V9UXaYTwPfHy";
     Instant creation = Instant.now();
 
-    User user = new User(id, name, password, creation);
+    User user = new User(id, name, passwordHash, creation);
 
     Assert.assertEquals(id, user.getId());
     Assert.assertEquals(name, user.getName());
-    Assert.assertEquals(password, user.getPassword());
+    Assert.assertEquals(passwordHash, user.getPasswordHash());
     Assert.assertEquals(creation, user.getCreationTime());
   }
 }

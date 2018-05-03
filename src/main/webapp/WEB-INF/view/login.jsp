@@ -41,11 +41,13 @@
 
     <form action="/login" method="POST">
       <label for="username">Username: </label>
+      <br/>
       <input type="text" name="username" id="username">
       <br/>
       <label for="password">Password: </label>
-      <input type="password" name="password" id="password">
       <br/>
+      <input type="password" name="password" id="password">
+      <br/><br/>
       <button type="submit">Login</button>
     </form>
 
