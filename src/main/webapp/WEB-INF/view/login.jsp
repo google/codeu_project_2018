@@ -42,8 +42,14 @@
     <form action="/login" method="POST">
       <label for="username">Username: </label>
       <input type="text" name="username" id="username">
+      <br/>
+      <label for="password">Password: </label>
+      <input type="password" name="password" id="password">
+      <br/>
       <button type="submit">Login</button>
     </form>
+
+    <p>New users can register <a href="/register">here</a>.</p>
   </div>
 </body>
 </html>

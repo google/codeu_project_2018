@@ -59,24 +59,28 @@ public class LoginServlet extends HttpServlet {
   }
 
   /**
-   * This function fires when a user submits the login form. It gets the username from the submitted
-   * form data, and then adds it to the session so we know the user is logged in.
+   * This function fires when a user submits the login form. It gets the username and password from
+   * the submitted form data, checks for validity and if correct adds the username to the session so
+   * we know the user is logged in.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
-    if (!username.matches("[\\w*\\s*]*")) {
-      request.setAttribute("error", "Please enter only letters, numbers, and spaces.");
+    if (!userStore.isUserRegistered(username)) {
+      request.setAttribute("error", "That username was not found.");
       request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
       return;
     }
 
-    if (!userStore.isUserRegistered(username)) {
-      //TODO(kevin): fix password
-      User user = new User(UUID.randomUUID(), username, "password", Instant.now());
-      userStore.addUser(user);
+    User user = userStore.getUser(username);
+
+    if (!password.equals(user.getPassword())) {
+      request.setAttribute("error", "Please enter a correct password.");
+      request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+      return;
     }
 
     request.getSession().setAttribute("user", username);
