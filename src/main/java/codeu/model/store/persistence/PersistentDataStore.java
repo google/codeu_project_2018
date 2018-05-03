@@ -23,6 +23,8 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +82,8 @@ public class PersistentDataStore {
   }
 
   /**
-   * Loads all Conversation objects from the Datastore service and returns them in a List.
+   * Loads all Conversation objects from the Datastore service and returns them in a List, sorted in
+   * ascending order by creation time.
    *
    * @throws PersistentDataStoreException if an error was detected during the load from the
    *     Datastore service
@@ -90,7 +93,7 @@ public class PersistentDataStore {
     List<Conversation> conversations = new ArrayList<>();
 
     // Retrieve all conversations from the datastore.
-    Query query = new Query("chat-conversations");
+    Query query = new Query("chat-conversations").addSort("creation_time", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
@@ -113,7 +116,8 @@ public class PersistentDataStore {
   }
 
   /**
-   * Loads all Message objects from the Datastore service and returns them in a List.
+   * Loads all Message objects from the Datastore service and returns them in a List, sorted in
+   * ascending order by creation time.
    *
    * @throws PersistentDataStoreException if an error was detected during the load from the
    *     Datastore service
@@ -123,7 +127,7 @@ public class PersistentDataStore {
     List<Message> messages = new ArrayList<>();
 
     // Retrieve all messages from the datastore.
-    Query query = new Query("chat-messages");
+    Query query = new Query("chat-messages").addSort("creation_time", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
 
     for (Entity entity : results.asIterable()) {
@@ -148,7 +152,7 @@ public class PersistentDataStore {
 
   /** Write a User object to the Datastore service. */
   public void writeThrough(User user) {
-    Entity userEntity = new Entity("chat-users");
+    Entity userEntity = new Entity("chat-users", user.getId().toString());
     userEntity.setProperty("uuid", user.getId().toString());
     userEntity.setProperty("username", user.getName());
     userEntity.setProperty("password_hash", user.getPasswordHash());
@@ -158,7 +162,7 @@ public class PersistentDataStore {
 
   /** Write a Message object to the Datastore service. */
   public void writeThrough(Message message) {
-    Entity messageEntity = new Entity("chat-messages");
+    Entity messageEntity = new Entity("chat-messages", message.getId().toString());
     messageEntity.setProperty("uuid", message.getId().toString());
     messageEntity.setProperty("conv_uuid", message.getConversationId().toString());
     messageEntity.setProperty("author_uuid", message.getAuthorId().toString());
@@ -169,7 +173,7 @@ public class PersistentDataStore {
 
   /** Write a Conversation object to the Datastore service. */
   public void writeThrough(Conversation conversation) {
-    Entity conversationEntity = new Entity("chat-conversations");
+    Entity conversationEntity = new Entity("chat-conversations", conversation.getId().toString());
     conversationEntity.setProperty("uuid", conversation.getId().toString());
     conversationEntity.setProperty("owner_uuid", conversation.getOwnerId().toString());
     conversationEntity.setProperty("title", conversation.getTitle());
@@ -177,3 +181,4 @@ public class PersistentDataStore {
     datastore.put(conversationEntity);
   }
 }
+
