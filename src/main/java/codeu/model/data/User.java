@@ -29,7 +29,7 @@ public class User {
    *
    * @param id the ID of this User
    * @param name the username of this User
-   * @param passwordHash the password of this User
+   * @param passwordHash the password hash of this User
    * @param creation the creation time of this User
    */
   public User(UUID id, String name, String passwordHash, Instant creation) {
