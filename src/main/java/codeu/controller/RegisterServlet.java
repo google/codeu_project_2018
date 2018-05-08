@@ -60,11 +60,11 @@ public class RegisterServlet extends HttpServlet {
       request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
       return;
     }
-    
-    String password = request.getParameter("password");    
-    String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
 
-    User user = new User(UUID.randomUUID(), username, hashed, Instant.now());
+    String password = request.getParameter("password");
+    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+    User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
     userStore.addUser(user);
 
     response.sendRedirect("/login");
