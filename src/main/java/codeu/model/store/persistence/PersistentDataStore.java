@@ -156,6 +156,7 @@ public class PersistentDataStore {
     userEntity.setProperty("username", user.getName());
     userEntity.setProperty("password_hash", user.getPasswordHash());
     userEntity.setProperty("creation_time", user.getCreationTime().toString());
+    userEntity.setProperty("about_me", user.getAboutMe());
     datastore.put(userEntity);
   }
 
@@ -180,4 +181,3 @@ public class PersistentDataStore {
     datastore.put(conversationEntity);
   }
 }
-

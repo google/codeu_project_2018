@@ -73,7 +73,7 @@
 
   <servlet-mapping>
     <servlet-name>ProfileServlet</servlet-name>
-    <url-pattern>/myprofile</url-pattern>
+    <url-pattern>/users/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
