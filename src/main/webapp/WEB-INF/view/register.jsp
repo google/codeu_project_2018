@@ -21,13 +21,23 @@
 </head>
 <body>
 
-<%@ include file="../src/main/webapp/WEB-INF/component/navbar.jsp" %>
+  <nav>
+     <a id="navTitle" href="/">CodeByter's Chat App</a>
+     <a href="/conversations">Conversations</a>
+     <% if(request.getSession().getAttribute("user") != null){ %>
+       <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
+       <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
+     <% } else { %>
+       <a href="/login">Login</a>
+     <% } %>
+     <a href="/about.jsp">About</a>
+  </nav>
 
   <div id="container">
     <h1>Register</h1>
 
     <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
     <form action="/register" method="POST">

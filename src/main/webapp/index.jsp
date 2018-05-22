@@ -44,19 +44,16 @@
       </p>
       <ul>
         <% if(request.getSession().getAttribute("user") != null){ %>
-          <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
-          <li>View the <a href="/about.jsp">about</a> page to learn more about the
-            project.</li>
           <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>"
           >My profile</a> page to view your profile.</li>
         <% } else{ %>
           <li><a href="/login">Login</a> to get started.</li>
+        <% } %>
           <li>Go to the <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
           <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
-        <% } %>
+
       </ul>
     </div>
   </div>

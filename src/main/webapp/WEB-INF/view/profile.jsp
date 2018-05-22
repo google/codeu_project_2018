@@ -23,38 +23,40 @@
 <head>
   <title>My Profile</title>
   <link rel="stylesheet" href="/css/main.css">
-   </head>
-   <body>
-      <nav>
-         <a id="navTitle" href="/">CodeByter's Chat App</a>
-         <a href="/conversations">Conversations</a>
-         <% if(request.getSession().getAttribute("user") != null){ %>
-         <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
-         <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
-         <% } else { %>
-         <a href="/login">Login</a>
-         <% } %>
-         <a href="/about.jsp">About</a>
-      </nav>
-      <div id="container">
+</head>
+  <body>
 
-        <% if(request.getAttribute("error") != null){ %>
+    <nav>
+      <a id="navTitle" href="/">CodeByter's Chat App</a>
+      <a href="/conversations">Conversations</a>
+      <% if(request.getSession().getAttribute("user") != null){ %>
+        <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
+        <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
+      <% } else { %>
+        <a href="/login">Login</a>
+      <% } %>
+      <a href="/about.jsp">About</a>
+    </nav>
+
+    <div id="container">
+
+      <% if(request.getAttribute("error") != null){ %>
         <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-        <% } %>
+      <% } %>
 
-        <% if(request.getSession().getAttribute("user") != null){ %>
+      <% if(request.getSession().getAttribute("user") != null){ %>
         <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
-        <hr>
-        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
-          <div class="form-group">
-            <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
-              <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-              <textarea rows="5" cols="120" name="aboutMe">Enter some interesting facts or details about yourself...
-              </textarea>
-          </div>
-          <button type="submit">submit</button>
-          </form>
-          <hr/>
+      <hr>
+    <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+    <div class="form-group">
+      <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+      <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+      <textarea rows="5" cols="120" name="aboutMe">Enter some interesting facts or details about yourself...
+      </textarea>
+    </div>
+      <button type="submit">submit</button>
+      </form>
+        <hr/>
           <% } %>
 
           <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
