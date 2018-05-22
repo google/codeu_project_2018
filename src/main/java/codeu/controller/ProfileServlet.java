@@ -59,9 +59,9 @@ public class ProfileServlet extends HttpServlet {
 		  throws IOException, ServletException {
 
 	  String username = (String)request.getSession().getAttribute("user");
- 		User user = userStore.getUser(username);
- 		String aboutMeContent = request.getParameter("About Me");
+	  User user = userStore.getUser(username);
+	  String aboutMeContent = request.getParameter("About me");
 
- 		response.sendRedirect("/users/" + username);
+	  response.sendRedirect("/users/" + username);
  	}
 }
