@@ -46,6 +46,9 @@ public class ProfileServlet extends HttpServlet {
       throws IOException, ServletException {
  	  String requestUrl = request.getRequestURI();
  	  String username = requestUrl.substring("/users/".length());
+    User user = userStore.getUser(username);
+
+    request.setAttribute("user", user);
  		request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
 	}
 
@@ -58,10 +61,28 @@ public class ProfileServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		  throws IOException, ServletException {
 
-	  String username = (String)request.getSession().getAttribute("user");
-	  User user = userStore.getUser(username);
-	  String aboutMeContent = request.getParameter("About me");
+	  String username = (String) request.getSession().getAttribute("user");
+    if (username == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
 
+    User user = userStore.getUser(username);
+    if (user == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
+
+    // Retreives about me information from user
+    String aboutMeContent = request.getParameter("About Me");
+
+    // this removes any HTML from the message content
+    String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
+
+    user.setAboutMe(cleanedAboutMeContent);
+    userStore.updateUser(user);
 	  response.sendRedirect("/users/" + username);
  	}
 }

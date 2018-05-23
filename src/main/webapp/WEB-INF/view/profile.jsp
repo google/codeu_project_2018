@@ -13,10 +13,17 @@
    See the License for the specific language governing permissions and
    limitations under the License.
    --%>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
+
+<%
+User user = (User) request.getAttribute("user");
+//Conversation conversation = (Conversation) request.getAttribute("conversation");
+//List<Message> messages = (List<Message>) request.getAttribute("messages");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -39,28 +46,31 @@
       <a href="/about.jsp">About</a>
     </nav>
 
-    <div id="container">
+      <div id="container">
 
-      <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-      <% } %>
+        <% if(request.getAttribute("error") != null){ %>
+          <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+        <% } %>
 
-      <% if(request.getSession().getAttribute("user") != null){ %>
-        <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
-      <hr>
-    <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
-    <div class="form-group">
-      <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
-      <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-      <textarea rows="5" cols="120" name="aboutMe">Enter some interesting facts or details about yourself...
-      </textarea>
-    </div>
+        <% if(request.getSession().getAttribute("user") != null){ %>
+          <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
+        <hr>
+          <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+          <p><%=user.getAboutMe()%></p>
+          <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+
+        <div class="form-group">
+          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+          <textarea rows="5" cols="120" name="About Me"></textarea>
+        </div>
+
       <button type="submit">submit</button>
       </form>
         <hr/>
           <% } %>
 
           <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
+
          <hr/>
       </div>
    </body>
