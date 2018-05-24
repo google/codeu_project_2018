@@ -27,7 +27,7 @@
   <nav>
     <a id="navTitle" href="/">CodeU Chat App</a>
     <a href="/conversations">Conversations</a>
-    <% if(request.getSession().getAttribute("user") != null){ %>
+    <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <a href="/logout.jsp">Logout</a>
     <% } else{ %>
@@ -38,11 +38,11 @@
 
   <div id="container">
 
-    <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+    <% if (request.getAttribute("error") != null) { %>
+      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
-    <% if(request.getSession().getAttribute("user") != null){ %>
+    <% if (request.getSession().getAttribute("user") != null) { %>
       <h1>New Conversation</h1>
       <form action="/conversations" method="POST">
           <div class="form-group">
@@ -61,16 +61,16 @@
     <%
     List<Conversation> conversations =
       (List<Conversation>) request.getAttribute("conversations");
-    if(conversations == null || conversations.isEmpty()){
+    if (conversations == null || conversations.isEmpty()) {
     %>
       <p>Create a conversation to get started.</p>
     <%
     }
-    else{
+    else {
     %>
       <ul class="mdl-list">
     <%
-      for(Conversation conversation : conversations){
+    for (Conversation conversation : conversations) {
     %>
       <li><a href="/chat/<%= conversation.getTitle() %>">
         <%= conversation.getTitle() %></a></li>
