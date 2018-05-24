@@ -1,3 +1,18 @@
+// Copyright 2017 Google Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+
 package codeu.controller;
 
 import java.io.IOException;
@@ -8,8 +23,8 @@ import codeu.model.data.User;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.store.basic.UserStore;
-import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
+import codeu.model.store.basic.ConversationStore;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +37,15 @@ public class ProfileServlet extends HttpServlet {
   /** Store class that gives access to Users. */
  	private UserStore userStore;
 
+  /** Store class that gives access to Messages. */
+  private MessageStore messageStore;
+
   /** Set up state for handling user requests. */
   @Override
   public void init() throws ServletException {
     super.init();
     setUserStore(UserStore.getInstance());
+    setMessageStore(MessageStore.getInstance());
   }
 
   /**
@@ -38,14 +57,30 @@ public class ProfileServlet extends HttpServlet {
   }
 
   /**
+   * Sets the MessageStore used by this servlet. This function provides a common setup method for
+   * use by the test framework or the servlet's init() function.
+   */
+  void setMessageStore(MessageStore messageStore) {
+    this.messageStore = messageStore;
+  }
+
+  /**
    * This function fires when a user navigates to the profiles page. It gets the user's name from
    * the URL and then forwards to profile.jsp for rendering.
    */
  	@Override
  	public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
+
  	  String requestUrl = request.getRequestURI();
  	  String username = requestUrl.substring("/users/".length());
+
+    User user = userStore.getUser(username);
+
+    List<Message> messagesByUser = messageStore.getMessagesByUser(username);
+
+    request.setAttribute("messagesByUser", messagesByUser);
+    request.setAttribute("user", user);
  		request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
 	}
 
@@ -58,10 +93,29 @@ public class ProfileServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		  throws IOException, ServletException {
 
-	  String username = (String)request.getSession().getAttribute("user");
- 		User user = userStore.getUser(username);
- 		String aboutMeContent = request.getParameter("About Me");
+	  String username = (String) request.getSession().getAttribute("user");
+    if (username == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
 
- 		response.sendRedirect("/users/" + username);
+    User user = userStore.getUser(username);
+    if (user == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
+
+    // this removes any HTML from the content
+    String messageContent = request.getParameter("messagesByUser");
+    //String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+
+    String aboutMeContent = request.getParameter("About Me");
+    String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
+
+    user.setAboutMe(cleanedAboutMeContent);
+    userStore.updateUser(user);
+	  response.sendRedirect("/users/" + username);
  	}
 }
