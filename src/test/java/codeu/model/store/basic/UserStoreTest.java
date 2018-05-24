@@ -94,6 +94,7 @@ public class UserStoreTest {
   @Test
   public void testIsUserRegistered_true() {
     Assert.assertTrue(userStore.isUserRegistered(USER_ONE.getName()));
+    Assert.assertTrue(userStore.isUserRegistered("Admin01"));
   }
 
   @Test
