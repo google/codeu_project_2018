@@ -18,7 +18,10 @@ import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.Instant;
 import java.util.UUID;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
@@ -57,11 +60,20 @@ public class UserStore {
 
   /** The in-memory list of Users. */
   private List<User> users;
+  /** The in-memory list of Admins. */
+  private List<User> admins;
 
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
   private UserStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
     users = new ArrayList<>();
+    admins = new ArrayList<>();
+
+    //hard-coded initial Admin:
+    String hashedPassword = BCrypt.hashpw("AdminPass01", BCrypt.gensalt());
+    User iniAdmin = new User(UUID.randomUUID(), "Admin01", hashedPassword, Instant.now());
+    iniAdmin.setAdmin(true);
+    admins.add(iniAdmin);
   }
 
   /**
@@ -76,6 +88,11 @@ public class UserStore {
         return user;
       }
     }
+    for (User admin : admins) {
+      if (admin.getName().equals(username)) {
+          return admin;
+      }
+    }
     return null;
   }
 
@@ -88,6 +105,11 @@ public class UserStore {
     for (User user : users) {
       if (user.getId().equals(id)) {
         return user;
+      }
+    }
+    for (User admin : admins) {
+      if (admin.getId().equals(id)) {
+          return admin;
       }
     }
     return null;
@@ -109,10 +131,15 @@ public class UserStore {
     persistentStorageAgent.writeThrough(user);
   }
 
-  /** Return true if the given username is known to the application. */
+  /** Return true if the given username is known to the application (both user list and admins list). */
   public boolean isUserRegistered(String username) {
     for (User user : users) {
       if (user.getName().equals(username)) {
+        return true;
+      }
+    }
+    for (User admin : admins) {
+      if (admin.getName().equals(username)) {
         return true;
       }
     }
@@ -122,9 +149,17 @@ public class UserStore {
   /**
    * Sets the List of Users stored by this UserStore. This should only be called once, when the data
    * is loaded from Datastore.
+   * The method also filter out the admins from the regular users, those will be added to the List of
+   * admins.
    */
   public void setUsers(List<User> users) {
     this.users = users;
+    for (User user : users) {
+      if (user.getAdmin()) {
+        users.remove(user);
+        admins.add(user);
+      }
+    }
   }
 }
 
