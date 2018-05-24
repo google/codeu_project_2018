@@ -7,12 +7,21 @@
 
      http://www.apache.org/licenses/LICENSE-2.0
 
+<<<<<<< HEAD
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
+=======
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   --%>
+>>>>>>> 173f4eeb999030568b564cea595d4fa70882a7ef
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
@@ -22,6 +31,12 @@
 <%
 User user = (User) request.getAttribute("user");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
+%>
+
+<%
+User user = (User) request.getAttribute("user");
+//Conversation conversation = (Conversation) request.getAttribute("conversation");
+//List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
 
 <!DOCTYPE html>
@@ -61,11 +76,23 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
     <a href="/about.jsp">About</a>
   </nav>
 
-    <div id="container">
+      <div id="container">
 
-      <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-      <% } %>
+        <% if(request.getAttribute("error") != null){ %>
+          <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+        <% } %>
+
+        <% if(request.getSession().getAttribute("user") != null){ %>
+          <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
+        <hr>
+          <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+          <p><%=user.getAboutMe()%></p>
+          <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+
+        <div class="form-group">
+          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+          <textarea rows="5" cols="120" name="About Me"></textarea>
+        </div>
 
       <% if(request.getSession().getAttribute("user") != null){ %>
         <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
