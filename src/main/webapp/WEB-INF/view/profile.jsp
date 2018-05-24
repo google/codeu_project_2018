@@ -55,7 +55,6 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
       <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
-      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
