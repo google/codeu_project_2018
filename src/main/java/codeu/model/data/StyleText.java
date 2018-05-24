@@ -22,5 +22,6 @@ public class StyleText{
 	
   public static String style(String message) {
 	return "<b>" + message + "</b>";
+	//TODO (Saroj Bhatta) Actual changes to be done. This is just for trial. 
   }
 }
