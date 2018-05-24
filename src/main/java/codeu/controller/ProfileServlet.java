@@ -77,7 +77,9 @@ public class ProfileServlet extends HttpServlet {
 
     User user = userStore.getUser(username);
 
-    List<Message> messagesByUser = messageStore.getMessagesByUser(username);
+    UUID userID = UserStore.getInstance().getUser(username).getId();
+
+    List<Message> messagesByUser = messageStore.getInstance().getMessagesByUser(userID);
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);

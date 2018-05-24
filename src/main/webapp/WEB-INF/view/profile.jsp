@@ -14,14 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
-=======
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-   --%>
->>>>>>> 173f4eeb999030568b564cea595d4fa70882a7ef
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
@@ -31,12 +23,6 @@
 <%
 User user = (User) request.getAttribute("user");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
-%>
-
-<%
-User user = (User) request.getAttribute("user");
-//Conversation conversation = (Conversation) request.getAttribute("conversation");
-//List<Message> messages = (List<Message>) request.getAttribute("messages");
 %>
 
 <!DOCTYPE html>
@@ -54,13 +40,7 @@ User user = (User) request.getAttribute("user");
     }
   </style>
 
-  <script>
-    // scroll the chat div to the bottom
-    function scrollChat() {
-      var chatDiv = document.getElementById('chat');
-      chatDiv.scrollTop = chatDiv.scrollHeight;
-    };
-  </script>
+
 </head>
 <body>
 
@@ -70,6 +50,7 @@ User user = (User) request.getAttribute("user");
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
       <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
@@ -89,6 +70,8 @@ User user = (User) request.getAttribute("user");
           <p><%=user.getAboutMe()%></p>
           <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
+        <% } %>
+
         <div class="form-group">
           <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
           <textarea rows="5" cols="120" name="About Me"></textarea>
@@ -101,11 +84,6 @@ User user = (User) request.getAttribute("user");
         <p><%=user.getAboutMe()%></p>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-      <div class="form-group">
-        <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-        <textarea rows="5" cols="120" name="About Me"></textarea>
-      </div>
-
     <button type="submit">submit</button>
     </form>
 
@@ -114,18 +92,24 @@ User user = (User) request.getAttribute("user");
 
         <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
 
+
+
+
         <div id="chat">
           <ul>
         <%
           for (Message message : messagesByUser) {
-            String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+            //String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
         %>
-          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
+          <li><strong></strong> <%= message.getContent() %></li>
         <%
           }
         %>
           </ul>
         </div>
+
+
+
 
       <hr/>
 

@@ -86,13 +86,12 @@ public class MessageStore {
   }
 
   /** Access the current set of Messages sent by current user. */
-  public List<Message> getMessagesByUser(String username) {
+  public List<Message> getMessagesByUser(UUID id) {
 
     List<Message> messagesByUser = new ArrayList<>();
 
     for (Message message : messages) {
-      String author = message.getAuthorId().toString();
-      if (author.equals(username)) {
+      if (message.getAuthorId() == id) {
         messagesByUser.add(message);
       }
     }
