@@ -24,9 +24,9 @@
   <nav>
     <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
-    <% if(request.getSession().getAttribute("user") != null){ %>
+    <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
-    <% } else{ %>
+    <% } else { %>
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
@@ -35,7 +35,7 @@
   <div id="container">
     <h1>Login</h1>
 
-    <% if(request.getAttribute("error") != null){ %>
+    <% if (request.getAttribute("error") != null) { %>
         <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
