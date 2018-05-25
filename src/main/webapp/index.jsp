@@ -43,10 +43,10 @@
         Through our site, you will be able to connect with the world through online chat!
       </p>
       <ul>
-        <% if(request.getSession().getAttribute("user") != null){ %>
+        <% if (request.getSession().getAttribute("user") != null) { %>
           <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>"
           >My profile</a> page to view your profile.</li>
-        <% } else{ %>
+        <% } else { %>
           <li><a href="/login">Login</a> to get started.</li>
         <% } %>
           <li>Go to the <a href="/conversations">conversations</a> page to
