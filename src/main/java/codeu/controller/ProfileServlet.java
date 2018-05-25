@@ -15,7 +15,6 @@
 package codeu.controller;
 
 import codeu.model.data.Message;
-import codeu.model.store.basic.ConversationStore;
 import codeu.model.data.User;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
@@ -71,8 +70,8 @@ public class ProfileServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
- 	  String requestUrl = request.getRequestURI();
- 	  String username = requestUrl.substring("/users/".length());
+    String requestUrl = request.getRequestURI();
+    String username = requestUrl.substring("/users/".length());
 
     User user = userStore.getUser(username);
     if (user == null) {
@@ -92,19 +91,19 @@ public class ProfileServlet extends HttpServlet {
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);
- 		request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
-	}
+    request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
+  }
 
   /**
-   * This function fires when user submits the form on the profiles page. It gets the user's username
-   * from the session, assigns that username to the user, collects the about me content, and then
-   * redirects back to the profile page with the displayed about me information.
-  */
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-		  throws IOException, ServletException {
+   * This function fires when user submits the form on the profiles page. It gets the user's
+   * username from the session, assigns that username to the user, collects the about me content,
+   * and then redirects back to the profile page with the displayed about me information.
+   */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws IOException, ServletException {
 
-	  String username = (String) request.getSession().getAttribute("user");
+    String username = (String) request.getSession().getAttribute("user");
     if (username == null) {
       // user is not logged in, redirect to login page
       response.sendRedirect("/login");
