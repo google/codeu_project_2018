@@ -71,12 +71,12 @@
     %>
       <ul class="mdl-list">
     <%
-    for (Conversation conversation : conversations) {
+        for (Conversation conversation : conversations) {
     %>
-      <li><a href="/chat/<%= conversation.getTitle() %>">
-        <%= conversation.getTitle() %></a></li>
+          <li><a href="/chat/<%= conversation.getTitle() %>">
+            <%= conversation.getTitle() %></a></li>
     <%
-      }
+        }
     %>
       </ul>
     <%
