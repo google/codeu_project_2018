@@ -12,19 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package codeu.controller;
 
+import codeu.model.data.Message;
+import codeu.model.store.basic.ConversationStore;
+import codeu.model.data.User;
+import codeu.model.store.basic.MessageStore;
+import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
-import java.time.Instant;
-import codeu.model.data.User;
-import codeu.model.data.Conversation;
-import codeu.model.data.Message;
-import codeu.model.store.basic.UserStore;
-import codeu.model.store.basic.MessageStore;
-import codeu.model.store.basic.ConversationStore;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +31,10 @@ import org.jsoup.safety.Whitelist;
 public class ProfileServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
- 	private UserStore userStore;
+  private UserStore userStore;
+
+  /** Store class that gives access to Messages. */
+  private MessageStore messageStore;
 
   /** Store class that gives access to Messages. */
   private MessageStore messageStore;
@@ -68,8 +67,8 @@ public class ProfileServlet extends HttpServlet {
    * This function fires when a user navigates to the profiles page. It gets the user's name from
    * the URL and then forwards to profile.jsp for rendering.
    */
- 	@Override
- 	public void doGet(HttpServletRequest request, HttpServletResponse response)
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
  	  String requestUrl = request.getRequestURI();
@@ -121,13 +120,13 @@ public class ProfileServlet extends HttpServlet {
 
     // this removes any HTML from the content
     String messageContent = request.getParameter("messagesByUser");
-    //String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+    // String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
 
     String aboutMeContent = request.getParameter("About Me");
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
 
     user.setAboutMe(cleanedAboutMeContent);
     userStore.updateUser(user);
-	  response.sendRedirect("/users/" + username);
- 	}
+    response.sendRedirect("/users/" + username);
+  }
 }

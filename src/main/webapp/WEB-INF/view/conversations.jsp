@@ -24,26 +24,26 @@
 </head>
 <body>
 
-    <nav>
-      <a id="navTitle" href="/">CodeByter's Chat App</a>
-      <a href="/conversations">Conversations</a>
-      <% if(request.getSession().getAttribute("user") != null){ %>
-        <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
-        <a href="/users/<%= request.getSession().getAttribute("user") %>">My Profile</a>
-        <a href="/logout.jsp">Logout</a>
-      <% } else{ %>
-        <a href="/login">Login</a>
-      <% } %>
-      <a href="/about.jsp">About</a>
-    </nav>
+  <nav>
+    <a id="navTitle" href="/">CodeByter's Chat App</a>
+    <a href="/conversations">Conversations</a>
+    <% if (request.getSession().getAttribute("user") != null) { %>
+      <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
+    <% } else { %>
+      <a href="/login">Login</a>
+    <% } %>
+    <a href="/about.jsp">About</a>
+  </nav>
 
   <div id="container">
 
-    <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+    <% if (request.getAttribute("error") != null) { %>
+      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
-    <% if(request.getSession().getAttribute("user") != null){ %>
+    <% if (request.getSession().getAttribute("user") != null) { %>
       <h1>New Conversation</h1>
       <form action="/conversations" method="POST">
           <div class="form-group">
@@ -62,16 +62,16 @@
     <%
     List<Conversation> conversations =
       (List<Conversation>) request.getAttribute("conversations");
-    if(conversations == null || conversations.isEmpty()){
+    if (conversations == null || conversations.isEmpty()) {
     %>
       <p>Create a conversation to get started.</p>
     <%
     }
-    else{
+    else {
     %>
       <ul class="mdl-list">
     <%
-      for(Conversation conversation : conversations){
+    for (Conversation conversation : conversations) {
     %>
       <li><a href="/chat/<%= conversation.getTitle() %>">
         <%= conversation.getTitle() %></a></li>

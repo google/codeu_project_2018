@@ -7,7 +7,6 @@
 
      http://www.apache.org/licenses/LICENSE-2.0
 
-<<<<<<< HEAD
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,7 +39,13 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
     }
   </style>
 
-
+  <script>
+    // scroll the chat div to the bottom
+    function scrollChat() {
+      var chatDiv = document.getElementById('chat');
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    };
+  </script>
 </head>
 <body>
 
@@ -89,9 +94,9 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
           <ul>
         <%
           for (Message message : messagesByUser) {
-            //Instant time = UserStore.getInstance().getCreationTime();
+            String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
         %>
-          <li><strong></strong> <%= message.getContent() %></li>
+          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
         <%
           }
         %>
