@@ -89,14 +89,10 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
 
     <div id="chat">
       <ul>
-    <%
-        for (Message message : messagesByUser) {
-          String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
-    %>
+        <% for (Message message : messagesByUser) {
+          String author = UserStore.getInstance().getUser(message.getAuthorId()).getName(); %>
           <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
-    <%
-        }
-    %>
+        <% } %>
       </ul>
     </div>
 
