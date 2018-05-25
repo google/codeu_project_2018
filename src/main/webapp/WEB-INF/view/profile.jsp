@@ -77,29 +77,19 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
           <textarea rows="5" cols="120" name="About Me"></textarea>
         </div>
 
-      <% if(request.getSession().getAttribute("user") != null){ %>
-        <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
-      <hr>
-        <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
-        <p><%=user.getAboutMe()%></p>
-        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-    <button type="submit">submit</button>
-    </form>
+      <button type="submit">submit</button>
+      </form>
 
       <hr/>
-        <% } %>
 
         <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
-
-
-
 
         <div id="chat">
           <ul>
         <%
           for (Message message : messagesByUser) {
-            //String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+            //Instant time = UserStore.getInstance().getCreationTime();
         %>
           <li><strong></strong> <%= message.getContent() %></li>
         <%
@@ -107,9 +97,6 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
         %>
           </ul>
         </div>
-
-
-
 
       <hr/>
 

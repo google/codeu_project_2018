@@ -76,8 +76,18 @@ public class ProfileServlet extends HttpServlet {
  	  String username = requestUrl.substring("/users/".length());
 
     User user = userStore.getUser(username);
+    if (user == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
 
     UUID userID = UserStore.getInstance().getUser(username).getId();
+    if (userID == null) {
+      // there is no user id, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
 
     List<Message> messagesByUser = messageStore.getInstance().getMessagesByUser(userID);
 
