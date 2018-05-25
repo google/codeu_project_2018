@@ -7,45 +7,99 @@
 
      http://www.apache.org/licenses/LICENSE-2.0
 
+<<<<<<< HEAD
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
+<%@ page import="codeu.model.data.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.store.basic.UserStore" %>
+<%@ page import="codeu.model.store.basic.MessageStore" %>
+<%
+User user = (User) request.getAttribute("user");
+List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodeU Chat App</title>
+  <title>My Profile</title>
   <link rel="stylesheet" href="/css/main.css">
+
+  <style>
+    #chat {
+      background-color: white;
+      height: 500px;
+      width: 750px;
+      overflow-y: scroll
+    }
+  </style>
+
+
 </head>
 <body>
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if(request.getSession().getAttribute("user") != null){ %>
-      <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
-      <a href="/profile.jsp">Profile</a>
+      <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
+      <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
       <a href="/logout.jsp">Logout</a>
-    <% } else{ %>
+    <% } else { %>
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
   </nav>
 
-  <div id="container">
-    <div
-      style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
+      <div id="container">
 
-      <h1><%= request.getSession().getAttribute("user") %>'s' Profile Page! </h1>
+        <% if(request.getAttribute("error") != null){ %>
+          <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+        <% } %>
 
-      <ul>
-        <li><strong>About <%= request.getSession().getAttribute("user") %>:</strong></li>
-        <li><strong><%= request.getSession().getAttribute("user") %>'s Sent Messages:</strong></li>
-      </ul>
+        <% if(request.getSession().getAttribute("user") != null){ %>
+          <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
+        <hr>
+          <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+          <p><%=user.getAboutMe()%></p>
+          <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+
+        <% } %>
+
+        <div class="form-group">
+          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+          <textarea rows="5" cols="120" name="About Me"></textarea>
+        </div>
+
+
+      <button type="submit">submit</button>
+      </form>
+
+      <hr/>
+
+        <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
+
+        <div id="chat">
+          <ul>
+        <%
+          for (Message message : messagesByUser) {
+            //Instant time = UserStore.getInstance().getCreationTime();
+        %>
+          <li><strong></strong> <%= message.getContent() %></li>
+        <%
+          }
+        %>
+          </ul>
+        </div>
+
+      <hr/>
 
     </div>
-  </div>
-</body>
+  </body>
 </html>
