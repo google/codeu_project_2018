@@ -14,6 +14,7 @@
 
 package codeu.controller;
 
+import java.util.UUID;
 import codeu.model.data.Message;
 import codeu.model.data.User;
 import codeu.model.store.basic.MessageStore;
@@ -31,9 +32,6 @@ public class ProfileServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
   private UserStore userStore;
-
-  /** Store class that gives access to Messages. */
-  private MessageStore messageStore;
 
   /** Store class that gives access to Messages. */
   private MessageStore messageStore;
@@ -87,7 +85,7 @@ public class ProfileServlet extends HttpServlet {
       return;
     }
 
-    List<Message> messagesByUser = messageStore.getInstance().getMessagesByUser(userID);
+    List<Message> messagesByUser = MessageStore.getInstance().getMessagesByUser(userID);
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);
