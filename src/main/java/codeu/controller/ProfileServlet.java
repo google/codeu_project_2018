@@ -12,19 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package codeu.controller;
 
+import codeu.model.data.Message;
+import codeu.model.data.User;
+import codeu.model.store.basic.MessageStore;
+import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
-import java.time.Instant;
-import codeu.model.data.User;
-import codeu.model.data.Conversation;
-import codeu.model.data.Message;
-import codeu.model.store.basic.UserStore;
-import codeu.model.store.basic.MessageStore;
-import codeu.model.store.basic.ConversationStore;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +30,7 @@ import org.jsoup.safety.Whitelist;
 public class ProfileServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
- 	private UserStore userStore;
+  private UserStore userStore;
 
   /** Store class that gives access to Messages. */
   private MessageStore messageStore;
@@ -68,12 +63,12 @@ public class ProfileServlet extends HttpServlet {
    * This function fires when a user navigates to the profiles page. It gets the user's name from
    * the URL and then forwards to profile.jsp for rendering.
    */
- 	@Override
- 	public void doGet(HttpServletRequest request, HttpServletResponse response)
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
 
- 	  String requestUrl = request.getRequestURI();
- 	  String username = requestUrl.substring("/users/".length());
+    String requestUrl = request.getRequestURI();
+    String username = requestUrl.substring("/users/".length());
 
     User user = userStore.getUser(username);
 
@@ -81,19 +76,19 @@ public class ProfileServlet extends HttpServlet {
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);
- 		request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
-	}
+    request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
+  }
 
   /**
-   * This function fires when user submits the form on the profiles page. It gets the user's username
-   * from the session, assigns that username to the user, collects the about me content, and then
-   * redirects back to the profile page with the displayed about me information.
-  */
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-		  throws IOException, ServletException {
+   * This function fires when user submits the form on the profiles page. It gets the user's
+   * username from the session, assigns that username to the user, collects the about me content,
+   * and then redirects back to the profile page with the displayed about me information.
+   */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws IOException, ServletException {
 
-	  String username = (String) request.getSession().getAttribute("user");
+    String username = (String) request.getSession().getAttribute("user");
     if (username == null) {
       // user is not logged in, redirect to login page
       response.sendRedirect("/login");
@@ -109,13 +104,13 @@ public class ProfileServlet extends HttpServlet {
 
     // this removes any HTML from the content
     String messageContent = request.getParameter("messagesByUser");
-    //String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+    // String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
 
     String aboutMeContent = request.getParameter("About Me");
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
 
     user.setAboutMe(cleanedAboutMeContent);
     userStore.updateUser(user);
-	  response.sendRedirect("/users/" + username);
- 	}
+    response.sendRedirect("/users/" + username);
+  }
 }
