@@ -27,7 +27,7 @@
     <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <a href="/logout.jsp">Logout</a>
-    <% } else{ %>
+    <% } else { %>
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
@@ -43,19 +43,11 @@
         Through our site, you will be able to connect with the world through online chat!
       </p>
       <ul>
-        <% if(request.getSession().getAttribute("user") != null){ %>
-          <li>Go to the <a href="/conversations">conversations</a> page to
+        <li><a href="/login">Login</a> to get started.</li>
+        <li>Go to the <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
-          <li>View the <a href="/about.jsp">about</a> page to learn more about the
+        <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
-          <li>View the <a href="/profile.jsp">My profile</a> page to view your profile.</li>
-        <% } else{ %>
-          <li><a href="/login">Login</a> to get started.</li>
-          <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
-          <li>View the <a href="/about.jsp">about</a> page to learn more about the
-            project.</li>
-        <% } %>
       </ul>
     </div>
   </div>

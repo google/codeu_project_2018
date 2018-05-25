@@ -30,7 +30,7 @@
     <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
       <a href="/logout.jsp">Logout</a>
-    <% } else{ %>
+    <% } else { %>
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
