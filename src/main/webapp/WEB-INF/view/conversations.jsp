@@ -44,8 +44,8 @@
     <% if (request.getSession().getAttribute("user") != null) { %>
       <h1>New Conversation</h1>
       <form action="/conversations" method="POST">
-          <div class="form-group">
-            <label class="form-control-label">Title:</label>
+        <div class="form-group">
+          <label class="form-control-label">Title:</label>
           <input type="text" name="conversationTitle">
         </div>
 
