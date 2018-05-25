@@ -74,10 +74,10 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
       <p><%=user.getAboutMe()%></p>
       <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-      <div class="form-group">
-        <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-        <textarea rows="5" cols="120" name="About Me"></textarea>
-      </div>
+        <div class="form-group">
+          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+          <textarea rows="5" cols="120" name="About Me"></textarea>
+        </div>
 
         <button type="submit">submit</button>
       </form>
