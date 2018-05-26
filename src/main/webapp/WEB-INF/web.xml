@@ -72,8 +72,8 @@
   </servlet>
 
   <servlet-mapping>
-      <servlet-name>ActivityFeedServlet</servlet-name>
-      <url-pattern>/activityfeed</url-pattern>
+    <servlet-name>ActivityFeedServlet</servlet-name>
+    <url-pattern>/activityfeed</url-pattern>
   </servlet-mapping>
 
   <servlet>
