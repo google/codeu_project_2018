@@ -16,9 +16,11 @@ package codeu.model.store.basic;
 
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
@@ -62,6 +64,13 @@ public class UserStore {
   private UserStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
     users = new ArrayList<>();
+
+    // hard-coded initial Admin:
+    // TODO(JW): Merge "the creation process" from RegisterServlet to here.
+    String hashedPassword = BCrypt.hashpw("AdminPass01", BCrypt.gensalt());
+    User initialAdmin = new User(UUID.randomUUID(), "Admin01", hashedPassword, Instant.now());
+    initialAdmin.setAdmin(true);
+    users.add(initialAdmin);
   }
 
   /**
@@ -102,9 +111,7 @@ public class UserStore {
     persistentStorageAgent.writeThrough(user);
   }
 
-  /**
-   * Update an existing User.
-   */
+  /** Update an existing User. */
   public void updateUser(User user) {
     persistentStorageAgent.writeThrough(user);
   }
@@ -124,7 +131,19 @@ public class UserStore {
    * is loaded from Datastore.
    */
   public void setUsers(List<User> users) {
-    this.users = users;
+    for (User user : users) {
+      this.users.add(user);
+    }
+  }
+
+  /** Gets a List of Admins filtered from the List of Users. */
+  public ArrayList<User> getAdmins() {
+    ArrayList<User> admins = new ArrayList<>();
+    for (User user : users) {
+      if (user.isAdmin()) {
+        admins.add(user);
+      }
+    }
+    return admins;
   }
 }
-

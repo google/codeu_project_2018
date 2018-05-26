@@ -32,7 +32,7 @@ import java.util.UUID;
 /**
  * This class handles all interactions with Google App Engine's Datastore service. On startup it
  * sets the state of the applications's data objects from the current contents of its Datastore. It
- * also performs writes of new of modified objects back to the Datastore.
+ * also performs writes of new or modified objects back to the Datastore.
  */
 public class PersistentDataStore {
 
@@ -156,6 +156,7 @@ public class PersistentDataStore {
     userEntity.setProperty("username", user.getName());
     userEntity.setProperty("password_hash", user.getPasswordHash());
     userEntity.setProperty("creation_time", user.getCreationTime().toString());
+    userEntity.setProperty("about_me", user.getAboutMe());
     datastore.put(userEntity);
   }
 
@@ -180,4 +181,3 @@ public class PersistentDataStore {
     datastore.put(conversationEntity);
   }
 }
-
