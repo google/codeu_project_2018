@@ -16,9 +16,8 @@
     <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
-
-  	<div id="activityfeed">
-    	<h2 style="color:blue"> WELCOME TO THE <strong> ACTIVITY FEED PAGE </strong> (in progress) </h2>
-	</div>
+    <div id="activityfeed">
+    <h2 style="color:blue"> WELCOME TO THE <strong> ACTIVITY FEED PAGE </strong> (in progress) </h2>
+    </div>
 </body>
 </html>
