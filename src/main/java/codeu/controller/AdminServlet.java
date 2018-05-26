@@ -12,14 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package codeu.model.data;
+package codeu.controller;
 
+import javax.servlet.http.HttpServlet;
 
-/** Class representing a message. Messages are sent by a User in a Conversation. */
-public class StyleText {
-
-  public static String style(String message) {
-    return "<b>" + message + "</b>";
-    // TODO (Saroj Bhatta) Actual changes to be done. This is just for trial.
-  }
+/** Servlet class responsible for the chat page. */
+public class AdminServlet extends HttpServlet {
+  // TODO(JW): To be implemented.
 }

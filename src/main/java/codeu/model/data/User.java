@@ -23,6 +23,7 @@ public class User {
   private final String name;
   private final String passwordHash;
   private final Instant creation;
+  private boolean admin;
   private String aboutMe;
 
   /**
@@ -38,6 +39,7 @@ public class User {
     this.name = name;
     this.passwordHash = passwordHash;
     this.creation = creation;
+    this.admin = false;
     this.aboutMe = "";
   }
 
@@ -61,13 +63,23 @@ public class User {
     return creation;
   }
 
+  /** Returns the Admin status of the user. */
+  public boolean isAdmin() {
+    return admin;
+  }
+
+  /** Sets the admin status of the user. */
+  public void setAdmin(boolean status) {
+    this.admin = status;
+  }
+
   /** Returns the about me section of this User. */
   public String getAboutMe() {
     return aboutMe;
   }
 
   /** Sets the about me String of this User. */
-  public void setAboutMe(String aboutMe){
+  public void setAboutMe(String aboutMe) {
     this.aboutMe = aboutMe;
   }
 }
