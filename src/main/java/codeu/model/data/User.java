@@ -24,6 +24,7 @@ public class User {
   private final String passwordHash;
   private final Instant creation;
   private boolean admin;
+  private String aboutMe;
 
   /**
    * Constructs a new User.
@@ -39,6 +40,7 @@ public class User {
     this.passwordHash = passwordHash;
     this.creation = creation;
     this.admin = false;
+    this.aboutMe = "";
   }
 
   /** Returns the ID of this User. */
@@ -50,7 +52,7 @@ public class User {
   public String getName() {
     return name;
   }
-  
+
   /** Returns the password hash of this User. */
   public String getPasswordHash() {
     return passwordHash;
@@ -69,5 +71,15 @@ public class User {
   /** Sets the admin status of the user. */
   public void setAdmin(boolean status){
     this.admin = status;
+  }
+  
+  /** Returns the about me section of this User. */
+  public String getAboutMe() {
+    return aboutMe;
+  }
+
+  /** Sets the about me String of this User. */
+  public void setAboutMe(String aboutMe){
+    this.aboutMe = aboutMe;
   }
 }
