@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class UserStoreTest {
-
   private UserStore userStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
 
@@ -100,6 +99,12 @@ public class UserStoreTest {
   @Test
   public void testIsUserRegistered_false() {
     Assert.assertFalse(userStore.isUserRegistered("fake username"));
+  }
+
+  @Test
+  public void testGetAdmins() {
+    Assert.assertEquals(1, userStore.getAdmins().size());
+    Assert.assertEquals(userStore.getAdmins().get(0).getName(), "Admin01");
   }
 
   private void assertEquals(User expectedUser, User actualUser) {

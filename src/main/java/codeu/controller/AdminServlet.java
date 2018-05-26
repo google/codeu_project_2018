@@ -18,5 +18,5 @@ import javax.servlet.http.HttpServlet;
 
 /** Servlet class responsible for the chat page. */
 public class AdminServlet extends HttpServlet {
-    //TODO(JW): To be implemented. 
+  // TODO(JW): To be implemented.
 }

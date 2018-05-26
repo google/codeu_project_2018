@@ -16,11 +16,10 @@ package codeu.model.store.basic;
 
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.Instant;
 import java.util.UUID;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -112,14 +111,12 @@ public class UserStore {
     persistentStorageAgent.writeThrough(user);
   }
 
-  /**
-   * Update an existing User.
-   */
+  /** Update an existing User. */
   public void updateUser(User user) {
     persistentStorageAgent.writeThrough(user);
   }
 
-  /** Return true if the given username is known to the application (both user list and admins list). */
+  /** Return true if the given username is known to the application. */
   public boolean isUserRegistered(String username) {
     for (User user : users) {
       if (user.getName().equals(username)) {
@@ -134,19 +131,16 @@ public class UserStore {
    * is loaded from Datastore.
    */
   public void setUsers(List<User> users) {
-    this.users = users;
     for (User user : users) {
-        users.add(user);
+      this.users.add(user);
     }
   }
 
-  /**
-   * Gets a List of Admins filtered from the List of Users.
-   */
-  public ArrayList<User> getAdmins(){
+  /** Gets a List of Admins filtered from the List of Users. */
+  public ArrayList<User> getAdmins() {
     ArrayList<User> admins = new ArrayList<>();
-    for(User user: users){
-      if(user.isAdmin()){
+    for (User user : users) {
+      if (user.isAdmin()) {
         admins.add(user);
       }
     }

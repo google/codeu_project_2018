@@ -64,22 +64,22 @@ public class User {
   }
 
   /** Returns the Admin status of the user. */
-  public boolean isAdmin(){
+  public boolean isAdmin() {
     return admin;
   }
 
   /** Sets the admin status of the user. */
-  public void setAdmin(boolean status){
+  public void setAdmin(boolean status) {
     this.admin = status;
   }
-  
+
   /** Returns the about me section of this User. */
   public String getAboutMe() {
     return aboutMe;
   }
 
   /** Sets the about me String of this User. */
-  public void setAboutMe(String aboutMe){
+  public void setAboutMe(String aboutMe) {
     this.aboutMe = aboutMe;
   }
 }
