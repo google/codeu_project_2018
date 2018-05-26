@@ -45,6 +45,12 @@ nav a {
   width: 800px;
 }
 
+#activityfeed {
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+}
+
 h1 {
   color: #757575;
 }
