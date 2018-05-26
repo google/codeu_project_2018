@@ -59,10 +59,14 @@ public class MessageStore {
   /** The in-memory list of Messages. */
   private List<Message> messages;
 
+  /** The in-memory list of Messages sent by user. */
+  private List<Message> messagesByUser;
+
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
   private MessageStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
     messages = new ArrayList<>();
+    messagesByUser = new ArrayList<>();
   }
 
   /** Add a new message to the current set of messages known to the application. */
@@ -102,5 +106,10 @@ public class MessageStore {
   /** Sets the List of Messages stored by this MessageStore. */
   public void setMessages(List<Message> messages) {
     this.messages = messages;
+  }
+
+  /** Sets the List of Messages stored by this MessageStore. */
+  public void setMessagesByUser(List<Message> messagesByUser) {
+    this.messagesByUser = messagesByUser;
   }
 }
