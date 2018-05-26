@@ -1,15 +1,18 @@
 package codeu.model.store.basic;
 
-import codeu.model.data.User;
-import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mindrot.jbcrypt.BCrypt;
 import org.mockito.Mockito;
+
+import codeu.model.data.User;
+import codeu.model.store.persistence.PersistentStorageAgent;
 
 public class UserStoreTest {
   private UserStore userStore;
@@ -76,18 +79,16 @@ public class UserStoreTest {
 
   @Test
   public void testAddUser() {
-    User inputUser =
-        new User(
-            UUID.randomUUID(),
-            "test_username",
-            "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
-            Instant.now());
+    String hashedPassword = BCrypt.hashpw("Password1", BCrypt.gensalt());
+    
+    userStore.addUser("test username1", "Password1", false);
+    User resultUser = userStore.getUser("test username1");
 
-    userStore.addUser(inputUser);
-    User resultUser = userStore.getUser("test_username");
+    Assert.assertEquals(resultUser.getName(), "test username1");
+    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertFalse(resultUser.isAdmin());
 
-    assertEquals(inputUser, resultUser);
-    Mockito.verify(mockPersistentStorageAgent).writeThrough(inputUser);
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
   }
 
   @Test
