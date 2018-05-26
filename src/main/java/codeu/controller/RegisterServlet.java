@@ -61,6 +61,7 @@ public class RegisterServlet extends HttpServlet {
       return;
     }
 
+    // TODO(JW): Merge "the creation process" from here to UserStore
     String password = request.getParameter("password");
     String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 

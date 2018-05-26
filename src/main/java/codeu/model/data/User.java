@@ -62,7 +62,7 @@ public class User {
   }
 
   /** Returns the Admin status of the user. */
-  public boolean getAdmin(){
+  public boolean isAdmin(){
     return admin;
   }
 

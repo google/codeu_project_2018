@@ -60,20 +60,18 @@ public class UserStore {
 
   /** The in-memory list of Users. */
   private List<User> users;
-  /** The in-memory list of Admins. */
-  private List<User> admins;
 
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
   private UserStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
     users = new ArrayList<>();
-    admins = new ArrayList<>();
 
-    //hard-coded initial Admin:
+    // hard-coded initial Admin:
+    // TODO(JW): Merge "the creation process" from RegisterServlet to here.
     String hashedPassword = BCrypt.hashpw("AdminPass01", BCrypt.gensalt());
-    User iniAdmin = new User(UUID.randomUUID(), "Admin01", hashedPassword, Instant.now());
-    iniAdmin.setAdmin(true);
-    admins.add(iniAdmin);
+    User initialAdmin = new User(UUID.randomUUID(), "Admin01", hashedPassword, Instant.now());
+    initialAdmin.setAdmin(true);
+    users.add(initialAdmin);
   }
 
   /**
@@ -88,11 +86,6 @@ public class UserStore {
         return user;
       }
     }
-    for (User admin : admins) {
-      if (admin.getName().equals(username)) {
-          return admin;
-      }
-    }
     return null;
   }
 
@@ -105,11 +98,6 @@ public class UserStore {
     for (User user : users) {
       if (user.getId().equals(id)) {
         return user;
-      }
-    }
-    for (User admin : admins) {
-      if (admin.getId().equals(id)) {
-          return admin;
       }
     }
     return null;
@@ -138,28 +126,30 @@ public class UserStore {
         return true;
       }
     }
-    for (User admin : admins) {
-      if (admin.getName().equals(username)) {
-        return true;
-      }
-    }
     return false;
   }
 
   /**
    * Sets the List of Users stored by this UserStore. This should only be called once, when the data
    * is loaded from Datastore.
-   * The method also filter out the admins from the regular users, those will be added to the List of
-   * admins.
    */
   public void setUsers(List<User> users) {
     this.users = users;
     for (User user : users) {
-      if (user.getAdmin()) {
-        users.remove(user);
+        users.add(user);
+    }
+  }
+
+  /**
+   * Gets a List of Admins filtered from the List of Users.
+   */
+  public ArrayList<User> getAdmins(){
+    ArrayList<User> admins = new ArrayList<>();
+    for(User user: users){
+      if(user.isAdmin()){
         admins.add(user);
       }
     }
+    return admins;
   }
 }
-
