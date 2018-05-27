@@ -14,7 +14,6 @@
 
 package codeu.controller;
 
-
 import codeu.model.data.Message;
 import codeu.model.data.User;
 import codeu.model.store.basic.MessageStore;
@@ -86,7 +85,7 @@ public class ProfileServlet extends HttpServlet {
       return;
     }
 
-    List<Message> messagesByUser = messageStore.getInstance().getMessagesByUser(userID);
+    List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);
