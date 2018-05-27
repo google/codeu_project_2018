@@ -19,7 +19,20 @@ package codeu.model.data;
 public class StyleText {
 
   public static String style(String message) {
-    return "<b>" + message + "</b>";
+    //return "<b>" + message + "</b>";
+	//if (message== null) {
+		//return "";
+	//}
+    if (message.contains("[b]") && message.contains("[/b]")) {
+    	int startB = message.indexOf("[b]");
+    	String messageWithout = message.replace("[b]", "");
+    	int endB = messageWithout.indexOf("[/b]");
+    	messageWithout = messageWithout.replace("[/b]", "");
+    	return messageWithout.substring(0, startB) + "<b>" + messageWithout.substring(startB, endB) + "</b>" + messageWithout.substring(endB);
+    }
+    else {
+    	return message;
+    }
     // TODO (Saroj Bhatta) Actual changes to be done. This is just for trial.
   }
 }
