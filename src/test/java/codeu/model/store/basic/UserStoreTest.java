@@ -75,6 +75,18 @@ public class UserStoreTest {
   }
 
   @Test
+  public void testAddUserByName() {
+    userStore.addUser("test username1", "Password1", false);
+    User resultUser = userStore.getUser("test username1");
+
+    Assert.assertEquals(resultUser.getName(), "test username1");
+    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertFalse(resultUser.isAdmin());
+
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
+  }
+
+  @Test
   public void testAddUser() {
     User inputUser =
         new User(

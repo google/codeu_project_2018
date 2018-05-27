@@ -53,7 +53,7 @@
             create or join a conversation.</li>
           <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
-        <li>If you are an administrator, check out the <a href="/admin.jsp">Admin Page</a>.</li>
+        <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
       </ul>
     </div>
   </div>
