@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-
   <nav>
     <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
@@ -31,13 +30,13 @@
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
   <div id="container">
     <div
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
-
       <h1>CodeByter's Chat App</h1>
       <h2>Welcome!</h2>
       <p>
@@ -54,6 +53,7 @@
             create or join a conversation.</li>
           <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
+        <li>If you are an administrator, check out the <a href="/admin.jsp">Admin Page</a>.</li>
       </ul>
     </div>
   </div>

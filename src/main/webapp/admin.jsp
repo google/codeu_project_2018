@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title>CodeByter's Chat App</title>
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
@@ -24,36 +24,34 @@
   <nav>
     <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
-    <% if (request.getSession().getAttribute("user") != null) { %>
+    <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
-      <a href="/logout.jsp">Logout</a>
-    <% } else { %>
+    <% } else{ %>
       <a href="/login">Login</a>
     <% } %>
-    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
   <div id="container">
-    <h1>Login</h1>
+    <div
+      style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
 
-    <% if (request.getAttribute("error") != null) { %>
-      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-    <% } %>
+      <h1>Administration</h1>
+      <p>
+        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. 
+      </p>
 
-    <form action="/login" method="POST">
-      <label for="username">Username: </label>
-      <br/>
-      <input type="text" name="username" id="username">
-      <br/>
-      <label for="password">Password: </label>
-      <br/>
-      <input type="password" name="password" id="password">
-      <br/><br/>
-      <button type="submit">Login</button>
-    </form>
-
-    <p>New users can register <a href="/register">here</a>.</p>
+      <h2><strong>Site Statistics</strong></h2>
+      <ul>
+        <li><strong>Total Users:</strong></li>
+        <li><strong>Total Conversations:</strong></li>
+        <li><strong>Total Messages:</strong></li>
+        <li><strong>Most Active User:</strong></li>
+        <li><strong>Newest User:</strong></li>
+        <li><strong>Wordiest User:</strong></li>
+      </ul>
+      
+    </div>
   </div>
 </body>
 </html>
