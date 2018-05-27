@@ -60,12 +60,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     String password = request.getParameter("password");
-
-    userStore.addUser(username, password, false);
-    //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-    //User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
-    //userStore.addUser(user);
-    
+    userStore.addUser(username, password, /*admin=*/false);
     response.sendRedirect("/login");
   }
 }
