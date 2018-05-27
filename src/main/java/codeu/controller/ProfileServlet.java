@@ -19,6 +19,9 @@ import codeu.model.data.User;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,8 +74,20 @@ public class ProfileServlet extends HttpServlet {
     String username = requestUrl.substring("/users/".length());
 
     User user = userStore.getUser(username);
+    if (user == null) {
+      // user is not logged in, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
 
-    List<Message> messagesByUser = messageStore.getMessagesByUser(username);
+    UUID userID = UserStore.getInstance().getUser(username).getId();
+    if (userID == null) {
+      // there is no user id, redirect to login page
+      response.sendRedirect("/login");
+      return;
+    }
+
+    List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
 
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("user", user);
