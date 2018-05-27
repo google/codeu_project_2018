@@ -19,10 +19,6 @@ package codeu.model.data;
 public class StyleText {
 
   public static String style(String message) {
-    //return "<b>" + message + "</b>";
-	//if (message== null) {
-		//return "";
-	//}
     if (message.contains("[b]") && message.contains("[/b]")) {
     	int startB = message.indexOf("[b]");
     	String messageWithout = message.replace("[b]", "");
@@ -33,6 +29,5 @@ public class StyleText {
     else {
     	return message;
     }
-    // TODO (Saroj Bhatta) Actual changes to be done. This is just for trial.
   }
 }
