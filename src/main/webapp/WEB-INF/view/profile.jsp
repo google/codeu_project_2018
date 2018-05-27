@@ -80,7 +80,6 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
           <p><%=user.getAboutMe()%></p>
           <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-        <% } %>
 
         <div class="form-group">
           <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
@@ -110,6 +109,8 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
         </div>
 
       <hr/>
+
+      <% } %>
 
     </div>
   </body>
