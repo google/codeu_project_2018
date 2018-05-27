@@ -56,19 +56,6 @@ public class RegisterServletTest {
     registerServlet.setUserStore(mockUserStore);
 
     registerServlet.doPost(mockRequest, mockResponse);
-
-    // TODO(JW): Tests should be improved.
-
-    /** Tests when RegisterServlet uses AddUser(User user) */
-    // ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
-    // Mockito.verify(mockUserStore).addUser(userArgumentCaptor.capture().getName(), "test
-    // password", false);
-    // Assert.assertEquals("test username", userArgumentCaptor.getValue().getName());
-    // Assert.assertThat(
-    //    userArgumentCaptor.getValue().getPasswordHash(), CoreMatchers.containsString("$2a$10$"));
-    // Assert.assertEquals(60, userArgumentCaptor.getValue().getPasswordHash().length());
-
-    /** Tests when RegisterServlet uses AddUser(String username, String password, boolean admin) */
     Mockito.verify(mockUserStore).addUser("test username", "test password", false);
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
