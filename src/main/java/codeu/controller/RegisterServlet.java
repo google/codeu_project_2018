@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.time.Instant;
+import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
+import codeu.model.data.User;
+
 public class RegisterServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
@@ -55,8 +60,12 @@ public class RegisterServlet extends HttpServlet {
     }
 
     String password = request.getParameter("password");
-    userStore.addUser(username, password, false);
 
+    userStore.addUser(username, password, false);
+    //String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+    //User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
+    //userStore.addUser(user);
+    
     response.sendRedirect("/login");
   }
 }

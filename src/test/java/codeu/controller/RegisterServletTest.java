@@ -1,17 +1,15 @@
 package codeu.controller;
 
+import codeu.model.data.User;
+import codeu.model.store.basic.UserStore;
 import java.io.IOException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import codeu.model.store.basic.UserStore;
 
 public class RegisterServletTest {
 
@@ -59,6 +57,18 @@ public class RegisterServletTest {
 
     registerServlet.doPost(mockRequest, mockResponse);
 
+    // TODO(JW): Tests should be improved.
+
+    /** Tests when RegisterServlet uses AddUser(User user) */
+    // ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
+    // Mockito.verify(mockUserStore).addUser(userArgumentCaptor.capture().getName(), "test
+    // password", false);
+    // Assert.assertEquals("test username", userArgumentCaptor.getValue().getName());
+    // Assert.assertThat(
+    //    userArgumentCaptor.getValue().getPasswordHash(), CoreMatchers.containsString("$2a$10$"));
+    // Assert.assertEquals(60, userArgumentCaptor.getValue().getPasswordHash().length());
+
+    /** Tests when RegisterServlet uses AddUser(String username, String password, boolean admin) */
     Mockito.verify(mockUserStore).addUser("test username", "test password", false);
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
@@ -73,7 +83,7 @@ public class RegisterServletTest {
 
     registerServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockUserStore, Mockito.never()).addUser(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Boolean.class));
+    Mockito.verify(mockUserStore, Mockito.never()).addUser(Mockito.any(User.class));
     Mockito.verify(mockRequest).setAttribute("error", "That username is already taken.");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
