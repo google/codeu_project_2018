@@ -55,53 +55,50 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
     <% if(request.getSession().getAttribute("user") != null){ %>
       <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
       <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
     <a href="/about.jsp">About</a>
   </nav>
 
-    <div id="container">
+  <div id="container">
 
-      <% if(request.getAttribute("error") != null){ %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-      <% } %>
+    <% if (request.getAttribute("error") != null) { %>
+      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+    <% } %>
 
-      <% if(request.getSession().getAttribute("user") != null){ %>
-        <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
-      <hr>
-        <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
-        <p><%=user.getAboutMe()%></p>
-        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
-
-      <div class="form-group">
-        <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-        <textarea rows="5" cols="120" name="About Me"></textarea>
-      </div>
-
-    <button type="submit">submit</button>
-    </form>
-
+    <% if (request.getSession().getAttribute("user") != null) { %>
+      <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
       <hr/>
-        <% } %>
+      <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+      <p><%=user.getAboutMe()%></p>
+      <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-        <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
-
-        <div id="chat">
-          <ul>
-        <%
-          for (Message message : messagesByUser) {
-            String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
-        %>
-          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
-        <%
-          }
-        %>
-          </ul>
+        <div class="form-group">
+          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+          <textarea rows="5" cols="120" name="About Me"></textarea>
         </div>
 
-      <hr/>
+        <button type="submit">submit</button>
+      </form>
 
+      <hr/>
+    <% } %>
+
+    <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
+
+    <div id="chat">
+      <ul>
+        <% for (Message message : messagesByUser) {
+          String author = UserStore.getInstance().getUser(message.getAuthorId()).getName(); %>
+          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
+        <% } %>
+      </ul>
     </div>
-  </body>
+
+    <hr/>
+
+  </div>
+</body>
 </html>

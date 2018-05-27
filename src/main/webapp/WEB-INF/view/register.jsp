@@ -31,6 +31,7 @@
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
@@ -38,7 +39,7 @@
     <h1>Register</h1>
 
     <% if (request.getAttribute("error") != null) { %>
-        <h2 style="color:red"><%= request.getAttribute("error") %></h2>
+      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
     <form action="/register" method="POST">
