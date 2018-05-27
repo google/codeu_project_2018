@@ -90,20 +90,20 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
 
       <hr/>
 
-    <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
+      <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
 
-    <div id="chat">
-      <ul>
-        <% for (Message message : messagesByUser) {
-          Instant time = message.getCreationTime();
-          String creation = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(time);
-        %>
-          <li><strong><%= creation %>:</strong> <%= message.getContent() %></li>
-        <% } %>
-      </ul>
-    </div>
+      <div id="chat">
+        <ul>
+          <% for (Message message : messagesByUser) {
+            Instant time = message.getCreationTime();
+            String creation = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(time);
+          %>
+            <li><strong><%= creation %>:</strong> <%= message.getContent() %></li>
+          <% } %>
+        </ul>
+      </div>
 
-    <hr/>
+      <hr/>
     <% } %>
   </div>
 </body>
