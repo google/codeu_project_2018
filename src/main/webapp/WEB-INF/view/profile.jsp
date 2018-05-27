@@ -19,6 +19,11 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.time.Instant" %>
+<%@ page import="java.time.ZonedDateTime" %>
+<%@ page import="java.time.ZoneId" %>
+<%@ page import="java.time.ZoneOffset" %>
 <%
 User user = (User) request.getAttribute("user");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
@@ -94,9 +99,10 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
           <ul>
         <%
           for (Message message : messagesByUser) {
-            String author = UserStore.getInstance().getUser(message.getAuthorId()).getName();
+            Instant time = message.getCreationTime();
+            String creation = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(time);
         %>
-          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
+          <li><strong><%= creation %>:</strong> <%= message.getContent() %></li>
         <%
           }
         %>
