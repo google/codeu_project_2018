@@ -16,29 +16,43 @@ package codeu.model.data;
 
 /** Class representing a message. Messages are sent by a User in a Conversation. */
 public class StyleText {
+  private static String[] styleTags = {"b", "i", "u"};
 
   public static String style(String message) {
     String messageWithout = message;
-    while (messageWithout.contains("[b]") && messageWithout.contains("[/b]")) {
-      int startB = messageWithout.indexOf("[b]");
+    for (String tag : styleTags) {
+      messageWithout = style(messageWithout, tag);
+    }
+    return messageWithout;
+  }
+
+  private static String style(String message, String tag) {
+    String messageWithout = message;
+    while (messageWithout.contains("[" + tag + "]") && messageWithout.contains("[/" + tag + "]")) {
+      int startB = messageWithout.indexOf("[" + tag + "]");
       String beforeB = messageWithout.substring(0, startB);
       String afterB = messageWithout.substring(startB);
-      beforeB = beforeB.replaceAll("\\[/b\\]", "");
+      beforeB = beforeB.replaceAll("\\[/" + tag + "\\]", "");
       messageWithout = beforeB + afterB;
-      startB = messageWithout.indexOf("[b]");
-      messageWithout = messageWithout.replaceFirst("\\[b\\]", "");
-      int endB = messageWithout.indexOf("[/b]", startB);
-      messageWithout = messageWithout.replaceFirst("\\[/b\\]", "");
+      startB = messageWithout.indexOf("[" + tag + "]");
+      messageWithout = messageWithout.replaceFirst("\\[" + tag + "\\]", "");
+      int endB = messageWithout.indexOf("[/" + tag + "]", startB);
+      messageWithout = messageWithout.replaceFirst("\\[/" + tag + "\\]", "");
       if (endB >= 0) {
         messageWithout =
             messageWithout.substring(0, startB)
-                + "<b>"
+                + "<"
+                + tag
+                + ">"
                 + messageWithout.substring(startB, endB)
-                + "</b>"
+                + "</"
+                + tag
+                + ">"
                 + messageWithout.substring(endB);
       }
     }
-    return messageWithout.replaceAll("\\[/?b\\]", "");
+    return messageWithout.replaceAll("\\[/?" + tag + "\\]", "");
   }
 }
 
+// this [b] message [/b] contains [i] and runs [/i] every [u] single tags [/u] in our list
