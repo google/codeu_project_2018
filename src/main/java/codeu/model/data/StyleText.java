@@ -14,20 +14,31 @@
 
 package codeu.model.data;
 
-
 /** Class representing a message. Messages are sent by a User in a Conversation. */
 public class StyleText {
 
   public static String style(String message) {
-    if (message.contains("[b]") && message.contains("[/b]")) {
-    	int startB = message.indexOf("[b]");
-    	String messageWithout = message.replace("[b]", "");
-    	int endB = messageWithout.indexOf("[/b]");
-    	messageWithout = messageWithout.replace("[/b]", "");
-    	return messageWithout.substring(0, startB) + "<b>" + messageWithout.substring(startB, endB) + "</b>" + messageWithout.substring(endB);
+    String messageWithout = message;
+    while (messageWithout.contains("[b]") && messageWithout.contains("[/b]")) {
+      int startB = messageWithout.indexOf("[b]");
+      String beforeB = messageWithout.substring(0, startB);
+      String afterB = messageWithout.substring(startB);
+      beforeB = beforeB.replaceAll("\\[/b\\]", "");
+      messageWithout = beforeB + afterB;
+      startB = messageWithout.indexOf("[b]");
+      messageWithout = messageWithout.replaceFirst("\\[b\\]", "");
+      int endB = messageWithout.indexOf("[/b]", startB);
+      messageWithout = messageWithout.replaceFirst("\\[/b\\]", "");
+      if (endB >= 0) {
+        messageWithout =
+            messageWithout.substring(0, startB)
+                + "<b>"
+                + messageWithout.substring(startB, endB)
+                + "</b>"
+                + messageWithout.substring(endB);
+      }
     }
-    else {
-    	return message;
-    }
+    return messageWithout.replaceAll("\\[/?b\\]", "");
   }
 }
+
