@@ -19,6 +19,7 @@
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
+<%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.time.Instant" %>
 <%@ page import="java.time.ZonedDateTime" %>
@@ -77,7 +78,7 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
       <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
       <hr/>
       <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
-      <p><%=user.getAboutMe()%></p>
+      <p><%=StyleText.style(user.getAboutMe())%></p>
       <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
         <div class="form-group">
