@@ -99,7 +99,7 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
             Instant time = message.getCreationTime();
             String creation = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(time);
           %>
-            <li><strong><%= creation %>:</strong> <%= message.getContent() %></li>
+            <li><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
           <% } %>
         </ul>
       </div>
