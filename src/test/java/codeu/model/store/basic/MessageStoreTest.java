@@ -18,6 +18,8 @@ public class MessageStoreTest {
   private PersistentStorageAgent mockPersistentStorageAgent;
 
   private final UUID CONVERSATION_ID_ONE = UUID.randomUUID();
+  private final UUID USER_ONE = UUID.randomUUID();
+
   private final Message MESSAGE_ONE =
       new Message(
           UUID.randomUUID(),
@@ -59,6 +61,16 @@ public class MessageStoreTest {
     Assert.assertEquals(2, resultMessages.size());
     assertEquals(MESSAGE_ONE, resultMessages.get(0));
     assertEquals(MESSAGE_TWO, resultMessages.get(1));
+  }
+
+
+  @Test
+  public void testGetMessagesByUser() {
+    List<Message> testMessages = messageStore.getMessagesByUser(USER_ONE);
+
+    Assert.assertEquals(2, testMessages.size());
+    assertEquals(MESSAGE_ONE.getAuthorId(), USER_ONE);
+    assertEquals(MESSAGE_TWO.getAuthorId(), USER_ONE);
   }
 
   @Test
