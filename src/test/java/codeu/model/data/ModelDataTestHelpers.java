@@ -35,8 +35,11 @@ public class ModelDataTestHelpers {
    * in every field, and the individual methods can be used to set the test conditions. For example,
    * if the test needs specific author ID and message, then you could do:
    *
-   * <p>UUID fakeAuthor = UUID.randomUUID(); String fakeMessage = "test message 1"; Message
-   * fakeMessage = new TestMessageBuilder().author(fakeAuthor).message(fakeMessage).build();
+   * <pre>{@code
+   * UUID fakeAuthor = UUID.randomUUID();
+   * String fakeContent = "test message 1";
+   * Message fakeMessage = new TestMessageBuilder().author(fakeAuthor).content(fakeContent).build();
+   * }</pre>
    */
   public static class TestMessageBuilder {
     public TestMessageBuilder() {
@@ -62,12 +65,12 @@ public class ModelDataTestHelpers {
       return this;
     }
 
-    public TestMessageBuilder id(String content) {
+    public TestMessageBuilder content(String content) {
       this.content = content;
       return this;
     }
 
-    public TestMessageBuilder id(Instant creation) {
+    public TestMessageBuilder creation(Instant creation) {
       this.creation = creation;
       return this;
     }
