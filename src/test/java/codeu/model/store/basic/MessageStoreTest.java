@@ -31,14 +31,14 @@ public class MessageStoreTest {
       new Message(
           UUID.randomUUID(),
           CONVERSATION_ID_ONE,
-          UUID.randomUUID(),
+          USER_ONE,
           "message two",
           Instant.ofEpochMilli(2000));
   private final Message MESSAGE_THREE =
       new Message(
           UUID.randomUUID(),
           UUID.randomUUID(),
-          UUID.randomUUID(),
+          USER_ONE,
           "message three",
           Instant.ofEpochMilli(3000));
 
@@ -63,14 +63,20 @@ public class MessageStoreTest {
     assertEquals(MESSAGE_TWO, resultMessages.get(1));
   }
 
-
   @Test
   public void testGetMessagesByUser() {
+
+    final List<Message> messageList = new ArrayList<>();
+    messageList.add(MESSAGE_ONE);
+    messageList.add(MESSAGE_TWO);
+    messageList.add(MESSAGE_THREE);
+    messageStore.setMessages(messageList);
+
     List<Message> testMessages = messageStore.getMessagesByUser(USER_ONE);
 
     Assert.assertEquals(2, testMessages.size());
-    Assert.assertEquals(MESSAGE_ONE.getAuthorId(), USER_ONE);
-    Assert.assertEquals(MESSAGE_TWO.getAuthorId(), USER_ONE);
+    Assert.assertEquals(USER_ONE, MESSAGE_TWO.getAuthorId());
+    Assert.assertEquals(USER_ONE, MESSAGE_THREE.getAuthorId());
   }
 
   @Test
