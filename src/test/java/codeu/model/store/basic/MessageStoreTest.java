@@ -46,7 +46,7 @@ public class MessageStoreTest {
   }
 
   @Test
-  public void testGetMessagesInConversationNoMessages() {
+  public void testGetMessagesInConversation_noMessagesFound() {
     final Message message1 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
     final Message message2 = new TestMessageBuilder().conversation(CONVERSATION_ID_TWO).build();
     final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
