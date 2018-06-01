@@ -23,7 +23,6 @@ public class MessageStoreTest {
   private PersistentStorageAgent mockPersistentStorageAgent;
 
   private final UUID CONVERSATION_ID_ONE = UUID.randomUUID();
-  private final UUID CONVERSATION_ID_TWO = UUID.randomUUID();
 
   @Before
   public void setup() {
@@ -34,7 +33,7 @@ public class MessageStoreTest {
   @Test
   public void testGetMessagesInConversation() {
     final Message message1 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
-    final Message message2 = new TestMessageBuilder().conversation(CONVERSATION_ID_TWO).build();
+    final Message message2 = new TestMessageBuilder().build();
     final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
@@ -47,9 +46,9 @@ public class MessageStoreTest {
 
   @Test
   public void testGetMessagesInConversation_noMessagesFound() {
-    final Message message1 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
-    final Message message2 = new TestMessageBuilder().conversation(CONVERSATION_ID_TWO).build();
-    final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
+    final Message message1 = new TestMessageBuilder().build();
+    final Message message2 = new TestMessageBuilder().build();
+    final Message message3 = new TestMessageBuilder().build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
     UUID unusedConversationId = UUID.randomUUID();
@@ -60,17 +59,17 @@ public class MessageStoreTest {
 
   @Test
   public void testAddMessage() {
-    final Message message1 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
-    final Message message2 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
-    final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_TWO).build();
+    final Message message1 = new TestMessageBuilder().build();
+    final Message message2 = new TestMessageBuilder().build();
     final List<Message> messageList = new ArrayList<>();
     messageList.add(message1);
     messageList.add(message2);
     messageStore.setMessages(messageList);
 
+    final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
     messageStore.addMessage(message3);
 
-    List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_TWO);
+    List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
     assertEquals(1, resultMessages.size());
     assertMessageEquals(message3, resultMessages.get(0));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
