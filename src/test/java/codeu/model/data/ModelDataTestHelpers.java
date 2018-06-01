@@ -33,7 +33,7 @@ public class ModelDataTestHelpers {
   /**
    * Use this to create a fake Message to use in a unit test. When created it contains random data
    * in every field, and the individual methods can be used to set the test conditions. For example,
-   * if the test needs specific author ID and message, then you could do:
+   * if the test needs specific author ID and content, then you could do:
    *
    * <pre>{@code
    * UUID fakeAuthor = UUID.randomUUID();
