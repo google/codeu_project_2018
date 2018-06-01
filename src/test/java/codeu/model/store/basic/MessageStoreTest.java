@@ -51,19 +51,17 @@ public class MessageStoreTest {
     final Message message3 = new TestMessageBuilder().build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
-    UUID unusedConversationId = UUID.randomUUID();
-    List<Message> resultMessages = messageStore.getMessagesInConversation(unusedConversationId);
+    UUID unusedId = UUID.randomUUID();
+    List<Message> resultMessages = messageStore.getMessagesInConversation(unusedId);
 
     assertTrue(resultMessages.isEmpty());
   }
 
   @Test
   public void testAddMessage() {
-    final Message message1 = new TestMessageBuilder().build();
-    final Message message2 = new TestMessageBuilder().build();
     final List<Message> messageList = new ArrayList<>();
-    messageList.add(message1);
-    messageList.add(message2);
+    messageList.add(new TestMessageBuilder().build());
+    messageList.add(new TestMessageBuilder().build());
     messageStore.setMessages(messageList);
 
     final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
