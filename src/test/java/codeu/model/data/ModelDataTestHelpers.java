@@ -38,7 +38,7 @@ public class ModelDataTestHelpers {
     assertEquals(expected.getCreationTime(), actual.getCreationTime());
   }
 
-  /** Asserts that all fields on both Messages are the same. */
+  /** Asserts that all fields on both Users are the same. */
   public static void assertUserEquals(User expected, User actual) {
     assertEquals(expected.getId(), actual.getId());
     assertEquals(expected.getName(), actual.getName());
