@@ -35,8 +35,7 @@
   </nav>
 
   <div id="container">
-    <div
-      style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
+    <div style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
       <h1>CodeByter's Chat App</h1>
       <h2>Welcome!</h2>
       <p>
@@ -44,14 +43,14 @@
       </p>
       <ul>
         <% if (request.getSession().getAttribute("user") != null) { %>
-          <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>"
-          >My profile</a> page to view your profile.</li>
+          <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
+              My profile</a> page to view your profile.</li>
         <% } else { %>
           <li><a href="/login">Login</a> to get started.</li>
         <% } %>
-          <li>Go to the <a href="/conversations">conversations</a> page to
+        <li>Go to the <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
-          <li>View the <a href="/about.jsp">about</a> page to learn more about the
+        <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
         <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
       </ul>

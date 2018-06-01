@@ -64,21 +64,17 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
   <div id="container">
 
     <h1><%= conversation.getTitle() %>
-      <a href="" style="float: right">&#8635;</a></h1>
+        <a href="" style="float: right">&#8635;</a></h1>
 
     <hr/>
 
     <div id="chat">
       <ul>
-    <%
-      for (Message message : messages) {
-        String author = UserStore.getInstance()
-          .getUser(message.getAuthorId()).getName();
-    %>
-        <li><strong><%= author %>:</strong> <%= StyleText.style(message.getContent()) %></li>
-    <%
-      }
-    %>
+        <% for (Message message : messages) {
+          String author = UserStore.getInstance()
+              .getUser(message.getAuthorId()).getName(); %>
+          <li><strong><%= author %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+        <% } %>
       </ul>
     </div>
 
