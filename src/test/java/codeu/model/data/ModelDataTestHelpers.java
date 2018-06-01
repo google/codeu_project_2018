@@ -14,20 +14,20 @@
 
 package codeu.model.data;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.Instant;
 import java.util.UUID;
-
-import org.junit.Assert;
 
 public class ModelDataTestHelpers {
 
   /** Asserts that all fields on both Messages are the same. */
-  public static void assertMessageEquals(Message expectedMessage, Message actualMessage) {
-    Assert.assertEquals(expectedMessage.getId(), actualMessage.getId());
-    Assert.assertEquals(expectedMessage.getConversationId(), actualMessage.getConversationId());
-    Assert.assertEquals(expectedMessage.getAuthorId(), actualMessage.getAuthorId());
-    Assert.assertEquals(expectedMessage.getContent(), actualMessage.getContent());
-    Assert.assertEquals(expectedMessage.getCreationTime(), actualMessage.getCreationTime());
+  public static void assertMessageEquals(Message expected, Message actual) {
+    assertEquals(expected.getId(), actual.getId());
+    assertEquals(expected.getConversationId(), actual.getConversationId());
+    assertEquals(expected.getAuthorId(), actual.getAuthorId());
+    assertEquals(expected.getContent(), actual.getContent());
+    assertEquals(expected.getCreationTime(), actual.getCreationTime());
   }
 
   /**
