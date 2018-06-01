@@ -1,11 +1,14 @@
 package codeu.model.store.basic;
 
+import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -13,8 +16,6 @@ import org.mockito.Mockito;
 import codeu.model.data.Message;
 import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
 import codeu.model.store.persistence.PersistentStorageAgent;
-
-import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
 
 public class MessageStoreTest {
 
@@ -39,7 +40,7 @@ public class MessageStoreTest {
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
 
-    Assert.assertEquals(2, resultMessages.size());
+    assertEquals(2, resultMessages.size());
     assertMessageEquals(message1, resultMessages.get(0));
     assertMessageEquals(message3, resultMessages.get(1));
   }
@@ -54,7 +55,7 @@ public class MessageStoreTest {
     UUID unusedConversationId = UUID.randomUUID();
     List<Message> resultMessages = messageStore.getMessagesInConversation(unusedConversationId);
 
-    Assert.assertTrue(resultMessages.isEmpty());
+    assertTrue(resultMessages.isEmpty());
   }
 
   @Test
@@ -70,7 +71,7 @@ public class MessageStoreTest {
     messageStore.addMessage(message3);
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_TWO);
-    Assert.assertEquals(1, resultMessages.size());
+    assertEquals(1, resultMessages.size());
     assertMessageEquals(message3, resultMessages.get(0));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
   }
