@@ -15,6 +15,7 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
@@ -47,13 +48,16 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <body onload="scrollChat()">
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
@@ -69,7 +73,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName(); %>
-          <li><strong><%= author %>:</strong> <%= message.getContent() %></li>
+          <li><strong><%= author %>:</strong> <%= StyleText.style(message.getContent()) %></li>
         <% } %>
       </ul>
     </div>
