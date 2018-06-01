@@ -42,7 +42,7 @@ public class MessageStoreTest {
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
 
     assertEquals(2, resultMessages.size());
-    Map<UUID, Message> resultMessagesSet = new HashMap<UUID, Message>();
+    Map<UUID, Message> resultMessagesSet = new HashMap<>();
     for (Message resultMessage : resultMessages) {
       resultMessagesSet.put(resultMessage.getId(), resultMessage);
     }
@@ -75,7 +75,7 @@ public class MessageStoreTest {
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
     assertEquals(1, resultMessages.size());
-    Map<UUID, Message> resultMessagesSet = new HashMap<UUID, Message>();
+    Map<UUID, Message> resultMessagesSet = new HashMap<>();
     for (Message resultMessage : resultMessages) {
       resultMessagesSet.put(resultMessage.getId(), resultMessage);
     }
