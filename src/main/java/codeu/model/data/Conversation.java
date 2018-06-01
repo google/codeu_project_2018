@@ -61,4 +61,38 @@ public class Conversation {
   public Instant getCreationTime() {
     return creation;
   }
+
+  /** Auto-generated. Must be updated if any fields are added to this class. */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((creation == null) ? 0 : creation.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+    result = prime * result + ((title == null) ? 0 : title.hashCode());
+    return result;
+  }
+
+  /** Auto-generated. Must be updated if any fields are added to this class. */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
+    Conversation other = (Conversation) obj;
+    if (creation == null) {
+      if (other.creation != null) return false;
+    } else if (!creation.equals(other.creation)) return false;
+    if (id == null) {
+      if (other.id != null) return false;
+    } else if (!id.equals(other.id)) return false;
+    if (owner == null) {
+      if (other.owner != null) return false;
+    } else if (!owner.equals(other.owner)) return false;
+    if (title == null) {
+      if (other.title != null) return false;
+    } else if (!title.equals(other.title)) return false;
+    return true;
+  }
 }
