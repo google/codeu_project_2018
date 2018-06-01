@@ -1,17 +1,20 @@
 package codeu.model.store.persistence;
 
-import codeu.model.data.Conversation;
-import codeu.model.data.Message;
-import codeu.model.data.User;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+
+import codeu.model.data.Conversation;
+import codeu.model.data.Message;
+import codeu.model.data.User;
 
 /**
  * Test class for PersistentDataStore. The PersistentDataStore class relies on DatastoreService,

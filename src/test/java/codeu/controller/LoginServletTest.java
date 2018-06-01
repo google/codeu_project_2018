@@ -14,20 +14,21 @@
 
 package codeu.controller;
 
-import codeu.model.data.User;
-import codeu.model.store.basic.UserStore;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
+import codeu.model.data.User;
+import codeu.model.store.basic.UserStore;
 
 public class LoginServletTest {
 
@@ -70,13 +71,11 @@ public class LoginServletTest {
 
   @Test
   public void testDoPost_ExistingUser() throws IOException, ServletException {
-
     User user =
-        new User(
-            UUID.randomUUID(),
-            "test username",
-            "$2a$10$.e.4EEfngEXmxAO085XnYOmDntkqod0C384jOR9oagwxMnPNHaGLa",
-            Instant.now());
+        new TestUserBuilder()
+            .name("test username")
+            .passwordHash("$2a$10$.e.4EEfngEXmxAO085XnYOmDntkqod0C384jOR9oagwxMnPNHaGLa")
+            .build();
 
     Mockito.when(mockRequest.getParameter("username")).thenReturn("test username");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("test password");
