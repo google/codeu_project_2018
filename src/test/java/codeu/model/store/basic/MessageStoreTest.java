@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Before;
@@ -40,8 +42,12 @@ public class MessageStoreTest {
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
 
     assertEquals(2, resultMessages.size());
-    assertMessageEquals(message1, resultMessages.get(0));
-    assertMessageEquals(message3, resultMessages.get(1));
+    Map<UUID, Message> resultMessagesSet = new HashMap<UUID, Message>();
+    for (Message resultMessage : resultMessages) {
+      resultMessagesSet.put(resultMessage.getId(), resultMessage);
+    }
+    assertMessageEquals(message1, resultMessagesSet.get(message1.getId()));
+    assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
   }
 
   @Test
@@ -69,7 +75,11 @@ public class MessageStoreTest {
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
     assertEquals(1, resultMessages.size());
-    assertMessageEquals(message3, resultMessages.get(0));
+    Map<UUID, Message> resultMessagesSet = new HashMap<UUID, Message>();
+    for (Message resultMessage : resultMessages) {
+      resultMessagesSet.put(resultMessage.getId(), resultMessage);
+    }
+    assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
   }
 }
