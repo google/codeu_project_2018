@@ -35,9 +35,9 @@ public class MessageStoreTest {
 
   @Test
   public void testGetMessagesInConversation() {
-    final Message message1 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
-    final Message message2 = new TestMessageBuilder().build();
-    final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
+    Message message1 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
+    Message message2 = new TestMessageBuilder().build();
+    Message message3 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
@@ -53,9 +53,9 @@ public class MessageStoreTest {
 
   @Test
   public void testGetMessagesInConversation_noMessagesFound() {
-    final Message message1 = new TestMessageBuilder().build();
-    final Message message2 = new TestMessageBuilder().build();
-    final Message message3 = new TestMessageBuilder().build();
+    Message message1 = new TestMessageBuilder().build();
+    Message message2 = new TestMessageBuilder().build();
+    Message message3 = new TestMessageBuilder().build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
     UUID unusedId = UUID.randomUUID();
@@ -67,8 +67,8 @@ public class MessageStoreTest {
   @Test
   public void testGetMessagesByUser() {
     final Message message1 = new TestMessageBuilder().build();
-    final Message message2 = new TestMessageBuilder().author(USER_ONE).build();
-    final Message message3 = new TestMessageBuilder().author(USER_ONE).build();
+    final Message message2 = new TestMessageBuilder().withAuthorId(USER_ONE).build();
+    final Message message3 = new TestMessageBuilder().withAuthorId(USER_ONE).build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
     List<Message> resultMessages = messageStore.getMessagesByUser(USER_ONE);
@@ -89,7 +89,7 @@ public class MessageStoreTest {
     messageList.add(new TestMessageBuilder().build());
     messageStore.setMessages(messageList);
 
-    final Message message3 = new TestMessageBuilder().conversation(CONVERSATION_ID_ONE).build();
+    Message message3 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
     messageStore.addMessage(message3);
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);

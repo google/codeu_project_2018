@@ -45,10 +45,16 @@ public class ModelDataTestHelpers {
    * <pre>{@code
    * UUID fakeAuthor = UUID.randomUUID();
    * String fakeContent = "test message 1";
-   * Message fakeMessage = new TestMessageBuilder().author(fakeAuthor).content(fakeContent).build();
+   * Message fakeMessage = new TestMessageBuilder().withAuthor(fakeAuthor).withContent(fakeContent).build();
    * }</pre>
    */
   public static class TestMessageBuilder {
+    private UUID id;
+    private UUID conversation;
+    private UUID author;
+    private String content;
+    private Instant creation;
+
     public TestMessageBuilder() {
       this.id = UUID.randomUUID();
       this.conversation = UUID.randomUUID();
@@ -57,27 +63,27 @@ public class ModelDataTestHelpers {
       this.creation = Instant.now();
     }
 
-    public TestMessageBuilder id(UUID id) {
+    public TestMessageBuilder withId(UUID id) {
       this.id = id;
       return this;
     }
 
-    public TestMessageBuilder conversation(UUID conversation) {
+    public TestMessageBuilder withConversationId(UUID conversation) {
       this.conversation = conversation;
       return this;
     }
 
-    public TestMessageBuilder author(UUID author) {
+    public TestMessageBuilder withAuthorId(UUID author) {
       this.author = author;
       return this;
     }
 
-    public TestMessageBuilder content(String content) {
+    public TestMessageBuilder withContent(String content) {
       this.content = content;
       return this;
     }
 
-    public TestMessageBuilder creation(Instant creation) {
+    public TestMessageBuilder withCreationTime(Instant creation) {
       this.creation = creation;
       return this;
     }
@@ -85,11 +91,5 @@ public class ModelDataTestHelpers {
     public Message build() {
       return new Message(id, conversation, author, content, creation);
     }
-
-    private UUID id;
-    private UUID conversation;
-    private UUID author;
-    private String content;
-    private Instant creation;
   }
 }
