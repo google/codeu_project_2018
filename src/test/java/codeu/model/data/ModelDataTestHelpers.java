@@ -45,22 +45,22 @@ public class ModelDataTestHelpers {
    * <pre>{@code
    * UUID fakeAuthor = UUID.randomUUID();
    * String fakeContent = "test message 1";
-   * Message fakeMessage = new TestMessageBuilder().withAuthor(fakeAuthor).withContent(fakeContent).build();
+   * Message fakeMessage = new TestMessageBuilder().withAuthorId(fakeAuthor).withContent(fakeContent).build();
    * }</pre>
    */
   public static class TestMessageBuilder {
     private UUID id;
-    private UUID conversation;
-    private UUID author;
+    private UUID conversationId;
+    private UUID authorId;
     private String content;
-    private Instant creation;
+    private Instant creationTime;
 
     public TestMessageBuilder() {
       this.id = UUID.randomUUID();
-      this.conversation = UUID.randomUUID();
-      this.author = UUID.randomUUID();
+      this.conversationId = UUID.randomUUID();
+      this.authorId = UUID.randomUUID();
       this.content = UUID.randomUUID().toString();
-      this.creation = Instant.now();
+      this.creationTime = Instant.now();
     }
 
     public TestMessageBuilder withId(UUID id) {
@@ -68,13 +68,13 @@ public class ModelDataTestHelpers {
       return this;
     }
 
-    public TestMessageBuilder withConversationId(UUID conversation) {
-      this.conversation = conversation;
+    public TestMessageBuilder withConversationId(UUID conversationId) {
+      this.conversationId = conversationId;
       return this;
     }
 
-    public TestMessageBuilder withAuthorId(UUID author) {
-      this.author = author;
+    public TestMessageBuilder withAuthorId(UUID authorId) {
+      this.authorId = authorId;
       return this;
     }
 
@@ -83,13 +83,13 @@ public class ModelDataTestHelpers {
       return this;
     }
 
-    public TestMessageBuilder withCreationTime(Instant creation) {
-      this.creation = creation;
+    public TestMessageBuilder withCreationTime(Instant creationTime) {
+      this.creationTime = creationTime;
       return this;
     }
 
     public Message build() {
-      return new Message(id, conversation, author, content, creation);
+      return new Message(id, conversationId, authorId, content, creationTime);
     }
   }
 }
