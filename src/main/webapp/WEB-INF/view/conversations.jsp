@@ -15,6 +15,9 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
+<%
+List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -25,13 +28,16 @@
 <body>
 
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
@@ -57,29 +63,16 @@
 
     <h1>Conversations</h1>
 
-    <%
-    List<Conversation> conversations =
-      (List<Conversation>) request.getAttribute("conversations");
-    if (conversations == null || conversations.isEmpty()) {
-    %>
+    <% if (conversations == null || conversations.isEmpty()) { %>
       <p>Create a conversation to get started.</p>
-    <%
-    }
-    else {
-    %>
+    <% } else { %>
       <ul class="mdl-list">
-    <%
-    for (Conversation conversation : conversations) {
-    %>
-      <li><a href="/chat/<%= conversation.getTitle() %>">
-        <%= conversation.getTitle() %></a></li>
-    <%
-      }
-    %>
+        <% for (Conversation conversation : conversations) { %>
+          <li><a href="/chat/<%= conversation.getTitle() %>">
+              <%= conversation.getTitle() %></a></li>
+        <% } %>
       </ul>
-    <%
-    }
-    %>
+    <% } %>
     <hr/>
   </div>
 </body>

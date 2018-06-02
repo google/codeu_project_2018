@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class UserStoreTest {
-
   private UserStore userStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
 
@@ -76,6 +75,18 @@ public class UserStoreTest {
   }
 
   @Test
+  public void testAddUserByName() {
+    userStore.addUser("test username1", "Password1", false);
+    User resultUser = userStore.getUser("test username1");
+
+    Assert.assertEquals(resultUser.getName(), "test username1");
+    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertFalse(resultUser.isAdmin());
+
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
+  }
+
+  @Test
   public void testAddUser() {
     User inputUser =
         new User(
@@ -94,11 +105,18 @@ public class UserStoreTest {
   @Test
   public void testIsUserRegistered_true() {
     Assert.assertTrue(userStore.isUserRegistered(USER_ONE.getName()));
+    Assert.assertTrue(userStore.isUserRegistered("Admin01"));
   }
 
   @Test
   public void testIsUserRegistered_false() {
     Assert.assertFalse(userStore.isUserRegistered("fake username"));
+  }
+
+  @Test
+  public void testGetAdmins() {
+    Assert.assertEquals(1, userStore.getAdmins().size());
+    Assert.assertEquals(userStore.getAdmins().get(0).getName(), "Admin01");
   }
 
   private void assertEquals(User expectedUser, User actualUser) {

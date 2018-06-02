@@ -25,6 +25,7 @@ public class MessageStoreTest {
   private PersistentStorageAgent mockPersistentStorageAgent;
 
   private final UUID CONVERSATION_ID_ONE = UUID.randomUUID();
+  private final UUID USER_ONE = UUID.randomUUID();
 
   @Before
   public void setup() {
@@ -61,6 +62,24 @@ public class MessageStoreTest {
     List<Message> resultMessages = messageStore.getMessagesInConversation(unusedId);
 
     assertTrue(resultMessages.isEmpty());
+  }
+
+  @Test
+  public void testGetMessagesByUser() {
+    final Message message1 = new TestMessageBuilder().build();
+    final Message message2 = new TestMessageBuilder().author(USER_ONE).build();
+    final Message message3 = new TestMessageBuilder().author(USER_ONE).build();
+    messageStore.setMessages(Arrays.asList(message1, message2, message3));
+
+    List<Message> resultMessages = messageStore.getMessagesByUser(USER_ONE);
+
+    assertEquals(2, resultMessages.size());
+    Map<UUID, Message> resultMessagesSet = new HashMap<>();
+    for (Message resultMessage : resultMessages) {
+      resultMessagesSet.put(resultMessage.getId(), resultMessage);
+    }
+    assertMessageEquals(message2, resultMessagesSet.get(message2.getId()));
+    assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
   }
 
   @Test
