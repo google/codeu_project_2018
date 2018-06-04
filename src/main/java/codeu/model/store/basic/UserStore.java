@@ -16,9 +16,11 @@ package codeu.model.store.basic;
 
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
@@ -62,6 +64,21 @@ public class UserStore {
   private UserStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
     users = new ArrayList<>();
+
+    // hard-coded initial Admin:
+    this.addUser("Admin01", "AdminPass01", /*admin=*/ true);
+  }
+
+  /**
+   * Add a new user to the current set of users known to the application. This should only be called
+   * to add a new user, not to update an existing user.
+   */
+  public void addUser(String username, String password, boolean admin) {
+    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+    User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
+    user.setAdmin(admin);
+    this.users.add(user);
+    persistentStorageAgent.writeThrough(user);
   }
 
   /**
@@ -95,16 +112,14 @@ public class UserStore {
 
   /**
    * Add a new user to the current set of users known to the application. This should only be called
-   * to add a new user, not to update an existing user.
+   * * to add a new user, not to update an existing user.
    */
   public void addUser(User user) {
     users.add(user);
     persistentStorageAgent.writeThrough(user);
   }
 
-  /**
-   * Update an existing User.
-   */
+  /** Update an existing User. */
   public void updateUser(User user) {
     persistentStorageAgent.writeThrough(user);
   }
@@ -124,7 +139,19 @@ public class UserStore {
    * is loaded from Datastore.
    */
   public void setUsers(List<User> users) {
-    this.users = users;
+    for (User user : users) {
+      this.users.add(user);
+    }
+  }
+
+  /** Gets a List of Admins filtered from the List of Users. */
+  public ArrayList<User> getAdmins() {
+    ArrayList<User> admins = new ArrayList<>();
+    for (User user : users) {
+      if (user.isAdmin()) {
+        admins.add(user);
+      }
+    }
+    return admins;
   }
 }
-

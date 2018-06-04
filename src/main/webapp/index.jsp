@@ -16,34 +16,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CodeU Chat App</title>
+  <title>CodeByter's Chat App</title>
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-
   <nav>
-    <a id="navTitle" href="/">CodeU Chat App</a>
+    <a id="navTitle" href="/">CodeByter's Chat App</a>
     <a href="/conversations">Conversations</a>
     <% if (request.getSession().getAttribute("user") != null) { %>
       <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
+      <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
+      <a href="/logout.jsp">Logout</a>
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activityfeed">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
   <div id="container">
     <div style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
-
-      <h1>CodeU Chat App</h1>
+      <h1>CodeByter's Chat App</h1>
       <h2>Welcome!</h2>
-
+      <p>
+        Through our site, you will be able to connect with the world through online chat!
+      </p>
       <ul>
-        <li><a href="/login">Login</a> to get started.</li>
+        <% if (request.getSession().getAttribute("user") != null) { %>
+          <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
+              My profile</a> page to view your profile.</li>
+        <% } else { %>
+          <li><a href="/login">Login</a> to get started.</li>
+        <% } %>
         <li>Go to the <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
+        <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
       </ul>
     </div>
   </div>
